@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petale și Poveste | Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;700&family=Jost:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 50px; }
+        .kpi-card { background: var(--surface); padding: 30px; border-left: 4px solid var(--accent); border-radius: 2px; }
+        .kpi-val { font-family: var(--font-serif); font-size: 2.5rem; display: block; }
+        .kpi-label { font-size: 0.8rem; text-transform: uppercase; opacity: 0.6; }
+        #visitorsChart { width: 100%; height: 400px; background: var(--surface); border: 1px solid var(--border); margin-top: 20px; }
+    </style>
+</head>
+<body data-theme="light">
+    <div id="cursor"></div>
+    <nav>
+        <a href="index.html" class="logo">P & P Admin</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Site Public</a></li>
+        </ul>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <button id="themeToggle" style="background:none; border:none; color:inherit; cursor: pointer;">🌓</button>
+            <button id="hamburger" class="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="nav-overlay" id="navOverlay">
+        <a href="index.html">Site Public</a>
+    </div>
+
+    <section>
+        <h2 style="font-size: 3rem; margin-bottom: 40px;">Dashboard Analytics</h2>
+        <div class="admin-grid reveal">
+            <div class="kpi-card">
+                <span class="kpi-label">Vizitatori / Lună</span>
+                <span class="kpi-val">12,480</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Comenzi Noi</span>
+                <span class="kpi-val">342</span>
+            </div>
+            <div class="kpi-card">
+                <span class="kpi-label">Rata Conversie</span>
+                <span class="kpi-val">4.2%</span>
+            </div>
+        </div>
+
+        <div class="reveal">
+            <h3>Evoluție Vizitatori (Ian - Dec)</h3>
+            <canvas id="visitorsChart"></canvas>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

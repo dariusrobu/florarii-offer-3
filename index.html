@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petale și Poveste | Florărie Artizanală Sibiu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;700&family=Jost:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero-container { height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        .hero-img { position: absolute; top: 0; left: 0; width: 100%; height: 120%; object-fit: cover; z-index: -1; filter: brightness(0.9); }
+        .hero-content { text-align: center; color: #FFFFFF; max-width: 800px; z-index: 1; }
+        .hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 20px; }
+        
+        .tabs-container { margin-top: 50px; }
+        .tabs-nav { display: flex; justify-content: center; gap: 30px; margin-bottom: 50px; list-style: none; }
+        .tab-btn { background: none; border: none; font-family: var(--font-serif); font-size: 1.5rem; color: var(--text); opacity: 0.4; transition: var(--transition); cursor: pointer; }
+        .tab-btn.active { opacity: 1; border-bottom: 2px solid var(--accent); }
+        .tab-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; min-height: 400px; }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: grid; grid-template-columns: subgrid; grid-column: 1 / span 2; }
+        .tab-img { width: 100%; height: 400px; object-fit: cover; border-radius: 2px; }
+
+        .carousel { position: relative; overflow: hidden; max-width: 900px; margin: 0 auto; }
+        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
+        .testimonial-slide { min-width: 100%; padding: 40px; text-align: center; }
+        .testimonial-slide blockquote { font-family: var(--font-serif); font-size: 2rem; font-style: italic; margin-bottom: 20px; }
+    </style>
+</head>
+<body data-theme="light">
+    <div id="cursor"></div>
+
+    <nav id="navbar">
+        <a href="index.html" class="logo">P & P</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="about.html">Poveste</a></li>
+            <li><a href="services.html">Servicii</a></li>
+            <li><a href="portfolio.html">Portofoliu</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <button id="themeToggle" style="background:none; border:none; color:inherit; cursor: pointer;">🌓</button>
+            <button id="hamburger" class="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="nav-overlay" id="navOverlay">
+        <a href="index.html">Acasă</a>
+        <a href="about.html">Poveste</a>
+        <a href="services.html">Servicii</a>
+        <a href="portfolio.html">Portofoliu</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="hero-container">
+        <img src="imgs/hero.png" alt="Flowers" class="hero-img" id="parallaxHero">
+        <div class="hero-content">
+            <p class="reveal">Atelier Floral Sibiu</p>
+            <h1 class="reveal">Emoții livrate sub formă de flori.</h1>
+            <div class="reveal">
+                <a href="portfolio.html" class="btn">Explorează Colecția</a>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="reveal" style="text-align: center;">
+            <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 20px;">Arta noastră</p>
+            <h2 style="font-size: 3rem; margin-bottom: 50px;">Servicii Delicate</h2>
+        </div>
+        
+        <div class="tabs-container">
+            <ul class="tabs-nav">
+                <li><button class="tab-btn active" data-tab="buchete">Buchete</button></li>
+                <li><button class="tab-btn" data-tab="nunta">Nuntă</button></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="buchete">
+                    <img src="imgs/service-1.png" alt="Buchete" class="tab-img">
+                    <div class="tab-text">
+                        <h3 style="font-size: 2.5rem; margin-bottom: 20px;">Buchete Custom</h3>
+                        <p style="margin-bottom: 30px;">Compoziții unice pentru mesaje fără cuvinte.</p>
+                        <a href="https://wa.me/40700000000?text=Bună%20ziua!%20Doresc%20să%20comand%20un%20buchet%20custom%20văzut%20pe%20site." class="btn">Comandă</a>
+                    </div>
+                </div>
+                <div class="tab-pane" id="nunta">
+                    <img src="imgs/service-2.png" alt="Nunta" class="tab-img">
+                    <div class="tab-text">
+                        <h3 style="font-size: 2.5rem; margin-bottom: 20px;">Aranjamente Nuntă</h3>
+                        <p style="margin-bottom: 30px;">Transformăm ziua ta într-o poveste magică.</p>
+                        <a href="https://wa.me/40700000000?text=Bună%20ziua!%20Doresc%20o%20ofertă%20pentru%20aranjamente%20de%20nuntă." class="btn">Cere Ofertă</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: var(--surface);">
+        <div class="carousel">
+            <div class="carousel-track">
+                <div class="testimonial-slide">
+                    <img src="imgs/testimonial-1.png" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;">
+                    <blockquote>"Cele mai frumoase flori din Sibiu."</blockquote>
+                    <cite>— Maria Ionescu</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-about">
+                <a href="index.html" class="logo" style="font-size: 2rem;">P & P</a>
+                <p style="margin-top: 20px;">Atelierul tău premium din inima Sibiului.</p>
+            </div>
+            <div>
+                <p style="font-weight: 600; margin-bottom: 20px;">Link-uri Rapide</p>
+                <ul style="list-style: none; opacity: 0.7;">
+                    <li><a href="about.html" style="color: inherit; text-decoration: none;">Poveste</a></li>
+                    <li><a href="contact.html" style="color: inherit; text-decoration: none;">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/40700000000" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-2.31 0-4.184 1.874-4.184 4.184 0 2.31 1.874 4.184 4.184 4.184 2.31 0 4.184-1.874 4.184-4.184 0-2.31-1.874-4.184-4.184-4.184zm0 6.694c-1.383 0-2.51-1.127-2.51-2.51s1.127-2.51 2.51-2.51 2.51 1.127 2.51 2.51-1.127 2.51-2.51 2.51zm0-10.866C6.48 2 2 6.48 2 12.031c0 1.77.462 3.428 1.266 4.869L2 22l5.225-1.371a9.954 9.954 0 004.806 1.229c5.551 0 10.031-4.48 10.031-10.031S17.582 2 12.031 2zm0 18.39c-1.574 0-3.047-.406-4.328-1.114l-.31-.173-3.21.843.858-3.125-.19-.301a8.31 8.31 0 01-1.275-4.489c0-4.61 3.75-8.36 8.36-8.36s8.36 3.75 8.36 8.36-3.75 8.36-8.36 8.36z"/></svg>
+    </a>
+    <script src="script.js"></script>
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
