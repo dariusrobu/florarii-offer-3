@@ -4,97 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petale și Poveste | Povestea Noastră</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;700&family=Jost:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .about-hero { height: 80vh; position: relative; background: var(--accent); display: flex; align-items: center; justify-content: center; color: #fff; margin-bottom: 100px; overflow: hidden; }
-        .about-hero img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-        .about-hero h2 { z-index: 1; font-size: 4rem; text-align: center; max-width: 800px; }
+    
+    <script>
+        (function() {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 
-        .timeline { max-width: 800px; margin: 0 auto; position: relative; padding-left: 40px; border-left: 1px solid var(--border); }
-        .timeline-item { margin-bottom: 60px; position: relative; }
-        .timeline-item::before { content: ''; position: absolute; left: -46px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
-        
-        .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 100px; }
-        .team-card { perspective: 1000px; height: 400px; }
-        .team-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
-        .team-card:hover .team-inner { transform: rotateY(180deg); }
-        .team-front, .team-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 2px; overflow: hidden; }
-        .team-front img { width: 100%; height: 100%; object-fit: cover; }
-        .team-back { background: var(--surface); transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; padding: 20px; border: 1px solid var(--border); }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="light">
+<body class="has-custom-cursor">
+    <!-- Custom Cursor -->
     <div id="cursor"></div>
-    <nav>
-        <a href="index.html" class="logo">P & P</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Acasă</a></li>
-            <li><a href="about.html">Poveste</a></li>
-            <li><a href="services.html">Servicii</a></li>
-            <li><a href="portfolio.html">Portofoliu</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <button id="themeToggle" style="background:none; border:none; color:inherit; cursor: pointer;">🌓</button>
-            <button id="hamburger" class="hamburger">
-                <span></span><span></span><span></span>
-            </button>
+
+    <!-- Navigation Header -->
+    <nav id="navbar">
+        <div class="container" style="height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo">
+                <i data-lucide="flower" style="color: var(--color-accent); width: 28px; height: 28px;"></i>
+                <span>Petale & Poveste</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Acasă</a></li>
+                <li class="active"><a href="about.html">Poveste</a></li>
+                <li><a href="services.html">Servicii</a></li>
+                <li><a href="portfolio.html">Portofoliu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div style="display: flex; gap: 16px; align-items: center; z-index: 1101;">
+                <button id="themeToggle" style="background:none; border:none; cursor: pointer; color: var(--color-text-primary); display: flex; align-items: center;" aria-label="Toggle theme">
+                    <i data-lucide="moon" id="themeIcon" style="width: 20px; height: 20px; transition: transform 0.3s ease;"></i>
+                </button>
+                <button id="hamburger" class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
+    <!-- Mobile Navigation Overlay -->
     <div class="nav-overlay" id="navOverlay">
         <a href="index.html">Acasă</a>
-        <a href="about.html">Poveste</a>
+        <a href="about.html" style="color: var(--color-accent); font-weight:600;">Poveste</a>
         <a href="services.html">Servicii</a>
         <a href="portfolio.html">Portofoliu</a>
         <a href="contact.html">Contact</a>
     </div>
 
-    <div class="about-hero">
-        <img src="imgs/about.png" alt="Atelier">
-        <h2 class="reveal">O poveste scrisă cu flori și pasiune.</h2>
-    </div>
-
-    <section>
-        <div class="timeline">
-            <div class="timeline-item reveal">
-                <div style="color: var(--accent); font-weight: bold; margin-bottom: 10px;">2018</div>
-                <h3>Primul Mugur</h3>
-                <p>Am început într-un mic atelier din centrul istoric al Sibiului.</p>
-            </div>
-            <div class="timeline-item reveal">
-                <div style="color: var(--accent); font-weight: bold; margin-bottom: 10px;">2024</div>
-                <h3>Astăzi</h3>
-                <p>Suntem un punct de referință în designul floral artizanal Sibiu.</p>
-            </div>
-        </div>
-
-        <div class="team-grid">
-            <div class="team-card reveal">
-                <div class="team-inner">
-                    <div class="team-front"><img src="imgs/testimonial-1.png"></div>
-                    <div class="team-back">
-                        <h3>Elena Popa</h3>
-                        <p>Fondator & Lead Designer</p>
+    <!-- Main Content -->
+    <main style="padding-top: 120px;">
+        <!-- Editorial Intro -->
+        <section style="padding: 60px 0;">
+            <div class="container" style="display: grid; grid-template-columns: 1fr; gap: 64px; align-items: center;">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 32px; max-width: 900px; margin: 0 auto; text-align: center;">
+                    <div class="reveal">
+                        <span class="label">Origini & Filosofie</span>
+                        <h1 style="margin-top: 12px; font-size: clamp(2.4rem, 6vw, 3.5rem);">Pasiune pentru frumos, respect absolut pentru natură.</h1>
+                        <p style="font-size: 18px; line-height: 1.6; color: var(--color-text-secondary);">Povestea noastră a început cu o dorință profundă: să reinventăm estetica designului floral în Sibiu, renunțând la tiparele comerciale rigide în favoarea unor compoziții organice, sustenabile, pline de viață.</p>
                     </div>
                 </div>
             </div>
-            <div class="team-card reveal">
-                <div class="team-inner">
-                    <div class="team-front"><img src="imgs/testimonial-2.png"></div>
-                    <div class="team-back">
-                        <h3>Ioana Radu</h3>
-                        <p>Floral Architect</p>
+        </section>
+
+        <!-- Dynamic Splits: Text & Photo -->
+        <section style="padding: 40px 0; background: rgba(var(--color-pastel-1-rgb), 0.02); border-top: 1px solid var(--color-border-default); border-bottom: 1px solid var(--color-border-default);">
+            <div class="container">
+                <div class="builder-grid" style="align-items: center; gap: 80px;">
+                    <div class="reveal" style="position: relative;">
+                        <img src="imgs/about.png" alt="Atelierul Petale si Poveste" style="width: 100%; height: 500px; object-fit: cover; border-radius: var(--border-radius-cards); box-shadow: var(--shadow-l2);">
+                    </div>
+                    <div class="reveal" style="display: flex; flex-direction: column; gap: 24px;">
+                        <span class="label">Manifestul Sustenabilității</span>
+                        <h2>Estetică ecologică fără compromisuri.</h2>
+                        <p>Pentru noi, florile nu sunt simple accesorii, ci elemente vii ale naturii. De aceea, la „Petale și Poveste” am exclus definitiv buretele floral sintetic din produsele noastre și folosim numai plase metalice reutilizabile sau structuri din nuiele, biodegradabile.</p>
+                        
+                        <div style="display: flex; gap: 16px; align-items: flex-start; margin-top: 8px;">
+                            <div style="background: rgba(var(--color-accent-rgb), 0.1); padding: 12px; border-radius: 50%; color: var(--color-accent);"><i data-lucide="leaf"></i></div>
+                            <div>
+                                <h4 style="font-size: 15px; font-weight:600; margin-bottom: 4px;">Sourcing Local</h4>
+                                <p style="font-size: 13px; color: var(--color-text-secondary);">Colaborăm direct cu grădinari pasionați din împrejurimile Sibiului și din restul Transilvaniei, susținând producția locală.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="background: rgba(var(--color-accent-rgb), 0.1); padding: 12px; border-radius: 50%; color: var(--color-accent);"><i data-lucide="package"></i></div>
+                            <div>
+                                <h4 style="font-size: 15px; font-weight:600; margin-bottom: 4px;">Ambalaje Reciclabile</h4>
+                                <p style="font-size: 13px; color: var(--color-text-secondary);">De la hârtia kraft de cânepă până la pânza de in naturală și panglici din bumbac organic, fiecare element se întoarce curat în natură.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <a href="https://wa.me/40700000000" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-2.31 0-4.184 1.874-4.184 4.184 0 2.31 1.874 4.184 4.184 4.184 2.31 0 4.184-1.874 4.184-4.184 0-2.31-1.874-4.184-4.184-4.184zm0 6.694c-1.383 0-2.51-1.127-2.51-2.51s1.127-2.51 2.51-2.51 2.51 1.127 2.51 2.51-1.127 2.51-2.51 2.51zm0-10.866C6.48 2 2 6.48 2 12.031c0 1.77.462 3.428 1.266 4.869L2 22l5.225-1.371a9.954 9.954 0 004.806 1.229c5.551 0 10.031-4.48 10.031-10.031S17.582 2 12.031 2zm0 18.39c-1.574 0-3.047-.406-4.328-1.114l-.31-.173-3.21.843.858-3.125-.19-.301a8.31 8.31 0 01-1.275-4.489c0-4.61 3.75-8.36 8.36-8.36s8.36 3.75 8.36 8.36-3.75 8.36-8.36 8.36z"/></svg>
-    </a>
-    <script src="script.js"></script>
+        <!-- Chronological Timeline -->
+        <section style="padding: 100px 0;">
+            <div class="container">
+                <div style="text-align: center; max-width: 600px; margin: 0 auto 80px;">
+                    <span class="label">Parcursul Nostru</span>
+                    <h2>Etapele unei povești înfloritoare.</h2>
+                </div>
+
+                <div style="max-width: 800px; margin: 0 auto; border-left: 2px solid var(--color-border-default); padding-left: 48px; position: relative;">
+                    <!-- Milestone 1 -->
+                    <div class="reveal" style="margin-bottom: 64px; position: relative;">
+                        <!-- Custom bullet dot -->
+                        <div style="position: absolute; left: -60px; top: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--color-bg-page); border: 4px solid var(--color-accent); box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.15);"></div>
+                        <span class="label" style="font-size: 14px; color: var(--color-accent); margin-bottom: 6px;">Primăvara 2018</span>
+                        <h3 style="margin-bottom: 12px; font-size: 20px;">Primul Mugur</h3>
+                        <p style="color: var(--color-text-secondary);">Deschiderea micului nostru atelier de creație în inima Sibiului. Am început cu o echipă formată din doar doi oameni și o viziune clară: să propunem un design asimetric, natural, în antiteză cu aranjamentele rigide sferice.</p>
+                    </div>
+
+                    <!-- Milestone 2 -->
+                    <div class="reveal" style="margin-bottom: 64px; position: relative;">
+                        <div style="position: absolute; left: -60px; top: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--color-bg-page); border: 4px solid var(--color-accent); box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.15);"></div>
+                        <span class="label" style="font-size: 14px; color: var(--color-accent); margin-bottom: 6px;">Toamna 2021</span>
+                        <h3 style="margin-bottom: 12px; font-size: 20px;">Viziune Eco-Fermă</h3>
+                        <p style="color: var(--color-text-secondary);">Excluderea completă a plasticului din ambalaje și trecerea integrală la tehnici sustenabile (fără bureți sintetici). A fost un pas riscant în piață, dar apreciat imediat de clienții noștri educați care prețuiesc mediul înconjurător.</p>
+                    </div>
+
+                    <!-- Milestone 3 -->
+                    <div class="reveal" style="position: relative;">
+                        <div style="position: absolute; left: -60px; top: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--color-bg-page); border: 4px solid var(--color-accent); box-shadow: 0 0 0 4px rgba(var(--color-accent-rgb), 0.15);"></div>
+                        <span class="label" style="font-size: 14px; color: var(--color-accent); margin-bottom: 6px;">Prezent & Viitor</span>
+                        <h3 style="margin-bottom: 12px; font-size: 20px;">Artă dincolo de granițe</h3>
+                        <p style="color: var(--color-text-secondary);">Suntem o echipă unită care concepe decoruri complete pentru nunți memorabile în toată Transilvania și oferă abonamente corporate pentru showroom-uri de lux, păstrând mereu aceeași grijă artizanală pentru fiecare floare.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Creative Florists Team -->
+        <section style="background: rgba(var(--color-pastel-1-rgb), 0.02); border-top: 1px solid var(--color-border-default);">
+            <div class="container">
+                <div style="text-align: center; max-width: 600px; margin: 0 auto 64px;">
+                    <span class="label">Sufletele Atelierului</span>
+                    <h2>Echipa noastră de artiști.</h2>
+                    <p>Florari pasionați, designeri de concepte și oameni dedicați care cred în frumos și în povești.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-width: 900px; margin: 0 auto;">
+                    <!-- Team 1 -->
+                    <div class="glass-card reveal" style="text-align: center; padding: 40px var(--s-24);">
+                        <img src="imgs/testimonial-1.png" alt="Ana Ionescu" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 3px solid var(--color-accent);">
+                        <h3 style="font-size: 18px; margin-bottom: 4px;">Ana Ionescu</h3>
+                        <span class="label" style="font-size: 10px; color: var(--color-text-secondary); margin-bottom: 16px;">Fondatoare & Lead Florist</span>
+                        <p style="font-size: 13px;">Pasionată de pictură și peisagistică, Ana este inima creativă a magazinului, cea care dă tonul asimetriilor noastre specifice.</p>
+                    </div>
+
+                    <!-- Team 2 -->
+                    <div class="glass-card reveal" style="text-align: center; padding: 40px var(--s-24);">
+                        <img src="imgs/testimonial-2.png" alt="Marius Radu" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 3px solid var(--color-accent);">
+                        <h3 style="font-size: 18px; margin-bottom: 4px;">Marius Radu</h3>
+                        <span class="label" style="font-size: 10px; color: var(--color-text-secondary); margin-bottom: 16px;">Scenograf Evenimente</span>
+                        <p style="font-size: 13px;">Cu o pregătire în arhitectură de interior, Marius transformă spațiile mari de nuntă în veritabile grădini suspendate, asigurând o structură solidă.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" style="text-align: center; color: var(--color-text-secondary); font-size: 12px;">
+            © 2026 Petale și Poveste. Sibiu, România.
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
 </body>
 </html>

@@ -3,61 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petale și Poveste | Portofoliu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;700&family=Jost:wght@300;600&display=swap" rel="stylesheet">
+    <title>Petale și Poveste | Portofoliu Creație</title>
+    
+    <script>
+        (function() {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .masonry { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); grid-auto-rows: 250px; gap: 20px; }
-        .masonry-item { overflow: hidden; position: relative; border-radius: 2px; }
-        .masonry-item.tall { grid-row: span 2; }
-        .masonry-item.wide { grid-column: span 2; }
-        .masonry-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
-        .masonry-item:hover img { transform: scale(1.05); }
-        .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; }
-        .masonry-item:hover .overlay { opacity: 1; }
-    </style>
 </head>
-<body data-theme="light">
+<body class="has-custom-cursor">
+    <!-- Custom Cursor -->
     <div id="cursor"></div>
-    <nav>
-        <a href="index.html" class="logo">P & P</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Acasă</a></li>
-            <li><a href="about.html">Poveste</a></li>
-            <li><a href="services.html">Servicii</a></li>
-            <li><a href="portfolio.html">Portofoliu</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <button id="themeToggle" style="background:none; border:none; color:inherit; cursor: pointer;">🌓</button>
-            <button id="hamburger" class="hamburger">
-                <span></span><span></span><span></span>
-            </button>
+
+    <!-- Navigation Header -->
+    <nav id="navbar">
+        <div class="container" style="height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo">
+                <i data-lucide="flower" style="color: var(--color-accent); width: 28px; height: 28px;"></i>
+                <span>Petale & Poveste</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Acasă</a></li>
+                <li><a href="about.html">Poveste</a></li>
+                <li><a href="services.html">Servicii</a></li>
+                <li class="active"><a href="portfolio.html">Portofoliu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div style="display: flex; gap: 16px; align-items: center; z-index: 1101;">
+                <button id="themeToggle" style="background:none; border:none; cursor: pointer; color: var(--color-text-primary); display: flex; align-items: center;" aria-label="Toggle theme">
+                    <i data-lucide="moon" id="themeIcon" style="width: 20px; height: 20px; transition: transform 0.3s ease;"></i>
+                </button>
+                <button id="hamburger" class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
+    <!-- Mobile Navigation Overlay -->
     <div class="nav-overlay" id="navOverlay">
         <a href="index.html">Acasă</a>
         <a href="about.html">Poveste</a>
         <a href="services.html">Servicii</a>
-        <a href="portfolio.html">Portofoliu</a>
+        <a href="portfolio.html" style="color: var(--color-accent); font-weight:600;">Portofoliu</a>
         <a href="contact.html">Contact</a>
     </div>
 
-    <section>
-        <h2 class="reveal" style="text-align: center; font-size: 3.5rem; margin-bottom: 50px;">Galerie Lucrări</h2>
-        <div class="masonry reveal">
-            <div class="masonry-item tall"><img src="imgs/gallery-1.png"><div class="overlay">Vezi Proiect</div></div>
-            <div class="masonry-item wide"><img src="imgs/gallery-2.png"><div class="overlay">Vezi Proiect</div></div>
-            <div class="masonry-item"><img src="imgs/gallery-3.png"><div class="overlay">Vezi Proiect</div></div>
-            <div class="masonry-item tall"><img src="imgs/gallery-4.png"><div class="overlay">Vezi Proiect</div></div>
-            <div class="masonry-item"><img src="imgs/service-1.png"><div class="overlay">Vezi Proiect</div></div>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <main style="padding-top: 120px;">
+        <section>
+            <div class="container">
+                <!-- Page Intro -->
+                <div style="max-width: 600px; margin-bottom: 48px;">
+                    <span class="label">Proiecte Recente</span>
+                    <h1>Portofoliu de creație florală contemporană.</h1>
+                    <p>O incursiune vizuală în lucrările noastre artistice. De la buchete delicate la scenografii de nunți complexe realizate în județul Sibiu.</p>
+                </div>
 
-    <a href="https://wa.me/40700000000" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-2.31 0-4.184 1.874-4.184 4.184 0 2.31 1.874 4.184 4.184 4.184 2.31 0 4.184-1.874 4.184-4.184 0-2.31-1.874-4.184-4.184-4.184zm0 6.694c-1.383 0-2.51-1.127-2.51-2.51s1.127-2.51 2.51-2.51 2.51 1.127 2.51 2.51-1.127 2.51-2.51 2.51zm0-10.866C6.48 2 2 6.48 2 12.031c0 1.77.462 3.428 1.266 4.869L2 22l5.225-1.371a9.954 9.954 0 004.806 1.229c5.551 0 10.031-4.48 10.031-10.031S17.582 2 12.031 2zm0 18.39c-1.574 0-3.047-.406-4.328-1.114l-.31-.173-3.21.843.858-3.125-.19-.301a8.31 8.31 0 01-1.275-4.489c0-4.61 3.75-8.36 8.36-8.36s8.36 3.75 8.36 8.36-3.75 8.36-8.36 8.36z"/></svg>
-    </a>
-    <script src="script.js"></script>
+                <!-- Category Filters -->
+                <div class="portfolio-filter-bar reveal">
+                    <button class="filter-btn active" data-filter="all">Toate Creațiile</button>
+                    <button class="filter-btn" data-filter="wedding">Nunți & Decor Evenimente</button>
+                    <button class="filter-btn" data-filter="boutique">Buchete Boutique</button>
+                    <button class="filter-btn" data-filter="sub">Abonamente Săptămânale</button>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="portfolio-grid" id="portfolioGrid">
+                    <!-- Item 1 -->
+                    <div class="portfolio-item reveal" data-category="wedding" data-title="Grădina Suspendată" data-desc="O scenografie asimetrică aerată concepută pentru o nuntă în aer liber, cu ghirlande curgătoare de eucalipt și elemente organice din flori pastelate." data-flowers="Bujori regali, Trandafiri englezești, Eucalipt, Amaranthus alb." data-img="imgs/gallery-1.png">
+                        <img src="imgs/gallery-1.png" alt="Grădina Suspendată">
+                        <div class="portfolio-item-overlay">
+                            <span class="tag">Nuntă Artizanală</span>
+                            <h3>Grădina Suspendată</h3>
+                            <p style="font-size: 12px; opacity: 0.8; color: white;">Apasă pentru detalii floral-concept</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="portfolio-item reveal" data-category="boutique" data-title="Poezie de Primăvară" data-desc="Un buchet boutique concentrat pe texturi dinamice și pastelate, asamblat pe structură ecologică fără burete floral." data-flowers="Ranunculus, Lalele duble, Flori de ceară, Levănțică proaspătă." data-img="imgs/gallery-2.png">
+                        <img src="imgs/gallery-2.png" alt="Poezie de Primăvară">
+                        <div class="portfolio-item-overlay">
+                            <span class="tag">Buchet Boutique</span>
+                            <h3>Poezie de Primăvară</h3>
+                            <p style="font-size: 12px; opacity: 0.8; color: white;">Apasă pentru detalii floral-concept</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="portfolio-item reveal" data-category="wedding" data-title="Ceremonie în Castel" data-desc="Decor floral interior realizat în stil clasic, cu lumânări lungi de ceară naturală și ghirlande masive care urmează linia scărilor istorice." data-flowers="Delphinium albastru, Trandafiri albi de grădină, Ihederă." data-img="imgs/gallery-3.png">
+                        <img src="imgs/gallery-3.png" alt="Ceremonie în Castel">
+                        <div class="portfolio-item-overlay">
+                            <span class="tag">Nuntă Artizanală</span>
+                            <h3>Ceremonie în Castel</h3>
+                            <p style="font-size: 12px; opacity: 0.8; color: white;">Apasă pentru detalii floral-concept</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="portfolio-item reveal" data-category="sub" data-title="Minimalism Corporate" data-desc="Aranjament floral contemporan conceput pentru un showroom auto de lux din Sibiu, axat pe linii precise și contrast vizual." data-flowers="Hortensii verzi, Anturium, Frunze de palmier monstera." data-img="imgs/gallery-4.png">
+                        <img src="imgs/gallery-4.png" alt="Minimalism Corporate">
+                        <div class="portfolio-item-overlay">
+                            <span class="tag">Abonament Birou</span>
+                            <h3>Minimalism Corporate</h3>
+                            <p style="font-size: 12px; opacity: 0.8; color: white;">Apasă pentru detalii floral-concept</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="portfolio-item reveal" data-category="boutique" data-title="Buchetul „Lumina Zilei”" data-desc="Un aranjament asimetric strâns cu sfoară ecologică, ce transmite multă energie și căldură prin nuanțe vii de piersică și galben." data-flowers="Trandafiri Peach, Craspedia, Iarbă decorativă, Eucalipt." data-img="imgs/service-1.png">
+                        <img src="imgs/service-1.png" alt="Buchetul Lumina Zilei">
+                        <div class="portfolio-item-overlay">
+                            <span class="tag">Buchet Boutique</span>
+                            <h3>Buchetul „Lumina Zilei”</h3>
+                            <p style="font-size: 12px; opacity: 0.8; color: white;">Apasă pentru detalii floral-concept</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="portfolio-item reveal" data-category="wedding" data-title="Scena din Pădure" data-desc="Decor floral asimetric realizat la marginea pădurii Dumbrava Sibiului, utilizând exclusiv crengi naturale uscate și specii rezistente de câmp." data-flowers="Iarbă pampas, Trandafiri pudrați, Ramuri de mesteacăn." data-img="imgs/service-2.png">
+                        <img src="imgs/service-2.png" alt="Scena din Pădure">
+                        <div class="portfolio-item-overlay">
+                            <span class="tag">Nuntă Artizanală</span>
+                            <h3>Scena din Pădure</h3>
+                            <p style="font-size: 12px; opacity: 0.8; color: white;">Apasă pentru detalii floral-concept</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" style="text-align: center; color: var(--color-text-secondary); font-size: 12px;">
+            © 2026 Petale și Poveste. Sibiu, Transilvania. Toate drepturile rezervate.
+        </div>
+    </footer>
+
+    <!-- Glass Lightbox Modal -->
+    <div class="lightbox" id="portfolioLightbox">
+        <button class="lightbox-close" id="btnLightboxClose" aria-label="Close">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="lightbox-content">
+            <div class="lightbox-img-box">
+                <img src="imgs/gallery-1.png" alt="Detaliu Proiect" id="lightboxImg">
+            </div>
+            <div class="lightbox-info">
+                <span class="label" id="lightboxTag">NUNTĂ ARTIZANALĂ</span>
+                <h2 id="lightboxTitle" style="margin-bottom: 8px;">Titlu Proiect</h2>
+                <p id="lightboxDesc" style="font-size:14px; margin-bottom: 16px;">O descriere detaliată a conceptului floral conceput în Sibiu.</p>
+                
+                <div style="background: var(--color-bg-inset); padding: 16px; border-radius: var(--border-radius-inputs); border: 1px solid var(--color-border-default);">
+                    <span class="label" style="font-size: 9px; margin-bottom: 4px; display: block; color: var(--color-text-secondary);">Specii Florale Utilizate</span>
+                    <p id="lightboxFlowers" style="font-size:13px; font-weight: 500; color: var(--color-text-primary);"></p>
+                </div>
+
+                <div style="display: flex; gap: 16px; margin-top: 24px;">
+                    <a href="contact.html" class="btn btn-secondary" style="flex:1;">Cere Ofertă</a>
+                    <a href="#" class="btn" id="btnLightboxWhatsApp" style="flex:1.5; gap: 8px;">
+                        <i data-lucide="message-circle" style="width:16px; height:16px; fill: white;"></i>
+                        <span>WhatsApp Detalii</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+    <script>
+        // Portfolio Filters & Lightbox Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            const lightbox = document.getElementById('portfolioLightbox');
+            const btnLightboxClose = document.getElementById('btnLightboxClose');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxTag = document.getElementById('lightboxTag');
+            const lightboxDesc = document.getElementById('lightboxDesc');
+            const lightboxFlowers = document.getElementById('lightboxFlowers');
+            const btnLightboxWhatsApp = document.getElementById('btnLightboxWhatsApp');
+
+            // 1. Filtering Logic
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Toggle active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    portfolioItems.forEach(item => {
+                        const itemCategory = item.getAttribute('data-category');
+                        if (filterValue === 'all' || itemCategory === filterValue) {
+                            item.style.display = 'block';
+                            setTimeout(() => item.style.opacity = '1', 50);
+                        } else {
+                            item.style.opacity = '0';
+                            setTimeout(() => item.style.display = 'none', 300);
+                        }
+                    });
+                });
+            });
+
+            // 2. Lightbox Open
+            portfolioItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.getAttribute('data-img');
+                    const title = item.getAttribute('data-title');
+                    const desc = item.getAttribute('data-desc');
+                    const flowers = item.getAttribute('data-flowers');
+                    const category = item.querySelector('.tag').textContent;
+
+                    lightboxImg.src = img;
+                    lightboxTitle.textContent = title;
+                    lightboxTag.textContent = category.toUpperCase();
+                    lightboxDesc.textContent = desc;
+                    lightboxFlowers.textContent = flowers;
+
+                    // Set WhatsApp pre-filled text
+                    const waText = encodeURIComponent(`Bună ziua! Sunt interesat de o creație florală similară cu proiectul „${title}” de pe site-ul dvs. care include flori ca: ${flowers}. Puteți să-mi oferiți detalii?`);
+                    btnLightboxWhatsApp.href = `https://wa.me/40700000000?text=${waText}`;
+
+                    lightbox.classList.add('active');
+                });
+            });
+
+            // 3. Lightbox Close
+            btnLightboxClose?.addEventListener('click', () => {
+                lightbox.classList.remove('active');
+            });
+
+            // Click outside to close
+            lightbox?.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

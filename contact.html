@@ -4,90 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petale și Poveste | Contact</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;700&family=Jost:wght@300;600&display=swap" rel="stylesheet">
+    
+    <script>
+        (function() {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-        .form-container { background: var(--surface); padding: 50px; border: 1px solid var(--border); }
-        .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; margin-bottom: 8px; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; }
-        .form-group input, .form-group textarea { width: 100%; padding: 15px; background: var(--primary); border: 1px solid var(--border); color: var(--text); font-family: inherit; }
-    </style>
 </head>
-<body data-theme="light">
+<body class="has-custom-cursor">
+    <!-- Custom Cursor -->
     <div id="cursor"></div>
-    <nav>
-        <a href="index.html" class="logo">P & P</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Acasă</a></li>
-            <li><a href="about.html">Poveste</a></li>
-            <li><a href="services.html">Servicii</a></li>
-            <li><a href="portfolio.html">Portofoliu</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <button id="themeToggle" style="background:none; border:none; color:inherit; cursor: pointer;">🌓</button>
-            <button id="hamburger" class="hamburger">
-                <span></span><span></span><span></span>
-            </button>
+
+    <!-- Navigation Header -->
+    <nav id="navbar">
+        <div class="container" style="height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo">
+                <i data-lucide="flower" style="color: var(--color-accent); width: 28px; height: 28px;"></i>
+                <span>Petale & Poveste</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Acasă</a></li>
+                <li><a href="about.html">Poveste</a></li>
+                <li><a href="services.html">Servicii</a></li>
+                <li><a href="portfolio.html">Portofoliu</a></li>
+                <li class="active"><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div style="display: flex; gap: 16px; align-items: center; z-index: 1101;">
+                <button id="themeToggle" style="background:none; border:none; cursor: pointer; color: var(--color-text-primary); display: flex; align-items: center;" aria-label="Toggle theme">
+                    <i data-lucide="moon" id="themeIcon" style="width: 20px; height: 20px; transition: transform 0.3s ease;"></i>
+                </button>
+                <button id="hamburger" class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
+    <!-- Mobile Navigation Overlay -->
     <div class="nav-overlay" id="navOverlay">
         <a href="index.html">Acasă</a>
         <a href="about.html">Poveste</a>
         <a href="services.html">Servicii</a>
         <a href="portfolio.html">Portofoliu</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html" style="color: var(--color-accent); font-weight:600;">Contact</a>
     </div>
 
-    <section>
-        <div class="contact-grid">
-            <div class="reveal">
-                <h1 style="font-size: 3.5rem; margin-bottom: 30px;">Să discutăm.</h1>
-                <p style="font-size: 1.2rem; opacity: 0.7; margin-bottom: 40px;">Ești la un pas de a transforma spațiul tău.</p>
-                <div style="margin-bottom: 20px;">
-                    <strong>Adresă:</strong> Strada General Magheru 12, Sibiu
-                </div>
-                <div style="margin-top: 40px;">
-                    <a href="https://wa.me/40700000000?text=Bună%20ziua!%20Doresc%20să%20discutăm%20despre%20un%20proiect%20floral." class="btn" style="background: #25D366; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                        <span>WhatsApp Direct</span>
-                    </a>
-                </div>
-            </div>
+    <!-- Main Content -->
+    <main style="padding-top: 120px;">
+        <section>
+            <div class="container">
+                <div class="builder-grid" style="align-items: start; gap: 80px;">
+                    <!-- Left: Info & Live status -->
+                    <div class="reveal">
+                        <span class="label">Să păstrăm legătura</span>
+                        <h1 style="margin-top: 12px;">Să discutăm despre viziunea ta florală.</h1>
+                        <p style="margin-bottom: 40px;">Ești gata să dai viață unui eveniment de neuitat sau vrei să trimiți un buchet deosebit cuiva drag? Completează formularul sau contactează-ne direct.</p>
+                        
+                        <!-- Live Status Indicator -->
+                        <div class="live-status">
+                            <span class="live-dot" id="liveDot"></span>
+                            <span id="liveStatusText">Verificare program atelier...</span>
+                        </div>
 
-            <div class="form-container reveal">
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label>Nume</label>
-                        <input type="text" required>
+                        <div style="display: grid; gap: 32px; margin-top: 24px;">
+                            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <i data-lucide="map-pin" style="color: var(--color-accent); width: 24px; height: 24px; flex-shrink: 0;"></i>
+                                <div>
+                                    <h4 style="font-size: 15px; font-weight:600; margin-bottom: 4px;">Adresă Atelier</h4>
+                                    <p style="font-size: 14px; color: var(--color-text-secondary);">Strada General Magheru 12, Sibiu, 550186, România</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <i data-lucide="clock-3" style="color: var(--color-accent); width: 24px; height: 24px; flex-shrink: 0;"></i>
+                                <div>
+                                    <h4 style="font-size: 15px; font-weight:600; margin-bottom: 4px;">Program de Funcționare</h4>
+                                    <p style="font-size: 14px; color: var(--color-text-secondary);">Luni - Vineri: 09:00 - 19:00<br>Sâmbătă: 10:00 - 15:00<br>Duminică: Închis</p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                                <i data-lucide="phone" style="color: var(--color-accent); width: 24px; height: 24px; flex-shrink: 0;"></i>
+                                <div>
+                                    <h4 style="font-size: 15px; font-weight:600; margin-bottom: 4px;">Telefon / WhatsApp</h4>
+                                    <p style="font-size: 14px; color: var(--color-text-secondary);">+40 700 000 000</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 48px;">
+                            <a href="https://wa.me/40700000000" class="btn" style="gap: 12px;">
+                                <i data-lucide="message-circle" style="fill: white; width: 18px; height: 18px;"></i>
+                                <span>WhatsApp Direct</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" required>
+
+                    <!-- Right: Human Contact Card -->
+                    <div class="glass-card reveal" style="padding: 48px; border-radius: var(--border-radius-cards); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 32px;">
+                        <div style="background: rgba(var(--color-accent-rgb), 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-accent);">
+                            <i data-lucide="sparkles" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        
+                        <div>
+                            <h2 style="margin-bottom: 12px; font-size: 28px;">Hai să povestim!</h2>
+                            <p style="color: var(--color-text-secondary); max-width: 380px;">Nu ne plac formularele rigide. Preferăm o discuție caldă, la fel ca florile noastre. Alege metoda care ți se potrivește cel mai bine:</p>
+                        </div>
+
+                        <div style="display: grid; gap: 16px; width: 100%; max-width: 320px;">
+                            <a href="https://wa.me/40700000000" class="btn" style="gap: 12px; width: 100%;">
+                                <i data-lucide="message-circle" style="width: 20px; height: 20px;"></i>
+                                <span>WhatsApp Direct</span>
+                            </a>
+                            <a href="tel:+40700000000" class="btn btn-secondary" style="gap: 12px; width: 100%;">
+                                <i data-lucide="phone" style="width: 20px; height: 20px;"></i>
+                                <span>Sună-ne acum</span>
+                            </a>
+                            <a href="mailto:contact@petalesipoveste.ro" class="btn btn-secondary" style="gap: 12px; width: 100%;">
+                                <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+                                <span>Trimite un Email</span>
+                            </a>
+                        </div>
+
+                        <div style="padding-top: 16px; border-top: 1px solid var(--color-border-default); width: 100%;">
+                            <p style="font-size: 13px; color: var(--color-text-secondary);">
+                                <i data-lucide="map-pin" style="width: 14px; height: 14px; vertical-align: middle; margin-right: 4px;"></i>
+                                Sibiu, Strada Exemplu Nr. 15
+                            </p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Mesaj</label>
-                        <textarea rows="5"></textarea>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Trimite Mesaj</button>
-                </form>
-                <div id="success" style="display:none; text-align:center; padding: 40px 0;">
-                    <h3>Mesaj trimis cu succes!</h3>
                 </div>
             </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container" style="text-align: center; color: var(--color-text-secondary); font-size: 12px;">
+            © 2026 Petale și Poveste. Sibiu, România.
         </div>
-    </section>
+    </footer>
 
-    <a href="https://wa.me/40700000000" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-2.31 0-4.184 1.874-4.184 4.184 0 2.31 1.874 4.184 4.184 4.184 2.31 0 4.184-1.874 4.184-4.184 0-2.31-1.874-4.184-4.184-4.184zm0 6.694c-1.383 0-2.51-1.127-2.51-2.51s1.127-2.51 2.51-2.51 2.51 1.127 2.51 2.51-1.127 2.51-2.51 2.51zm0-10.866C6.48 2 2 6.48 2 12.031c0 1.77.462 3.428 1.266 4.869L2 22l5.225-1.371a9.954 9.954 0 004.806 1.229c5.551 0 10.031-4.48 10.031-10.031S17.582 2 12.031 2zm0 18.39c-1.574 0-3.047-.406-4.328-1.114l-.31-.173-3.21.843.858-3.125-.19-.301a8.31 8.31 0 01-1.275-4.489c0-4.61 3.75-8.36 8.36-8.36s8.36 3.75 8.36 8.36-3.75 8.36-8.36 8.36z"/></svg>
-    </a>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            document.getElementById('contactForm').style.display = 'none';
-            document.getElementById('success').style.display = 'block';
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Live Status Indicator Logic
+            const liveDot = document.getElementById('liveDot');
+            const liveStatusText = document.getElementById('liveStatusText');
+
+            const updateLiveStatus = () => {
+                const now = new Date();
+                const day = now.getDay(); // 0 is Sunday, 1 is Monday, ..., 6 is Saturday
+                const hour = now.getHours();
+                const minute = now.getMinutes();
+                const timeDecimal = hour + minute / 60;
+
+                let isOpen = false;
+
+                if (day >= 1 && day <= 5) { // Mon-Fri
+                    if (timeDecimal >= 9 && timeDecimal < 19) {
+                        isOpen = true;
+                    }
+                } else if (day === 6) { // Sat
+                    if (timeDecimal >= 10 && timeDecimal < 15) {
+                        isOpen = true;
+                    }
+                }
+
+                if (isOpen) {
+                    liveDot.className = 'live-dot';
+                    liveStatusText.innerHTML = '<strong>Deschis acum</strong> — Te așteptăm în atelier sau la telefon!';
+                } else {
+                    liveDot.className = 'live-dot closed';
+                    liveStatusText.innerHTML = '<strong>Închis acum</strong> — Deschidem următorul program de lucru.';
+                }
+            };
+
+            updateLiveStatus();
+            setInterval(updateLiveStatus, 60000); // Update every minute
         });
     </script>
 </body>

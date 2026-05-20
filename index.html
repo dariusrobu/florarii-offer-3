@@ -3,142 +3,701 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petale și Poveste | Florărie Artizanală Sibiu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;700&family=Jost:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .hero-container { height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        .hero-img { position: absolute; top: 0; left: 0; width: 100%; height: 120%; object-fit: cover; z-index: -1; filter: brightness(0.9); }
-        .hero-content { text-align: center; color: #FFFFFF; max-width: 800px; z-index: 1; }
-        .hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 20px; }
-        
-        .tabs-container { margin-top: 50px; }
-        .tabs-nav { display: flex; justify-content: center; gap: 30px; margin-bottom: 50px; list-style: none; }
-        .tab-btn { background: none; border: none; font-family: var(--font-serif); font-size: 1.5rem; color: var(--text); opacity: 0.4; transition: var(--transition); cursor: pointer; }
-        .tab-btn.active { opacity: 1; border-bottom: 2px solid var(--accent); }
-        .tab-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; min-height: 400px; }
-        .tab-pane { display: none; }
-        .tab-pane.active { display: grid; grid-template-columns: subgrid; grid-column: 1 / span 2; }
-        .tab-img { width: 100%; height: 400px; object-fit: cover; border-radius: 2px; }
+    <title>Petale și Poveste | Atelier Artizanal Sibiu</title>
+    
+    <script>
+        (function() {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 
-        .carousel { position: relative; overflow: hidden; max-width: 900px; margin: 0 auto; }
-        .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1); }
-        .testimonial-slide { min-width: 100%; padding: 40px; text-align: center; }
-        .testimonial-slide blockquote { font-family: var(--font-serif); font-size: 2rem; font-style: italic; margin-bottom: 20px; }
+    <!-- Resource Hints & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- LCP Preload: High Priority for Hero Image -->
+    <link rel="preload" as="image" href="imgs/hero.png" fetchpriority="high">
+    
+    <!-- Preload Critical Fonts -->
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/fraunces/v32/6NUv8F6vXMQBbcqP.woff2" crossorigin>
+
+    <!-- Lucide Icons for premium vectors -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Critical CSS: Inlined to prevent FCP/LCP delay -->
+    <style>
+        :root {
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-serif: 'Fraunces', serif;
+        }
+        body { 
+            margin: 0; 
+            background: var(--color-bg-page, #f4f6fc); 
+            font-family: var(--font-sans); 
+            color: var(--color-text-primary, #12151c); 
+            transition: background-color 400ms ease, color 300ms ease;
+        }
+        nav { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            height: 80px; 
+            z-index: 1100; 
+            transition: all 0.4s ease; 
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 24px; 
+        }
+        .hero { 
+            height: 100vh; 
+            height: 100svh; 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: #0f0a1a; 
+        }
+        .hero-img { 
+            position: absolute; 
+            inset: 0; 
+            width: 100%; 
+            height: 120%; 
+            object-fit: cover; 
+            opacity: 0.65; 
+            z-index: 0; 
+        }
+        .hero-content { 
+            position: relative; 
+            z-index: 2; 
+            text-align: center; 
+            color: #fff; 
+            max-width: 800px;
+            padding: 0 24px;
+        }
+        h1 { 
+            font-family: var(--font-serif); 
+            font-size: clamp(2.6rem, 7vw, 4rem); 
+            letter-spacing: -0.04em; 
+            margin-bottom: 24px; 
+            font-weight: 400;
+        }
     </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="light">
+<body class="has-custom-cursor">
+    <!-- Custom Cursor -->
     <div id="cursor"></div>
 
+    <!-- Background Decoration Glowing Orbs are managed via CSS (body::before & ::after) -->
+
+    <!-- Navigation Header -->
     <nav id="navbar">
-        <a href="index.html" class="logo">P & P</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Acasă</a></li>
-            <li><a href="about.html">Poveste</a></li>
-            <li><a href="services.html">Servicii</a></li>
-            <li><a href="portfolio.html">Portofoliu</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <button id="themeToggle" style="background:none; border:none; color:inherit; cursor: pointer;">🌓</button>
-            <button id="hamburger" class="hamburger">
-                <span></span><span></span><span></span>
-            </button>
+        <div class="container" style="height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo">
+                <i data-lucide="flower" style="color: var(--color-accent); width: 28px; height: 28px;"></i>
+                <span>Petale & Poveste</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li class="active"><a href="index.html">Acasă</a></li>
+                <li><a href="about.html">Poveste</a></li>
+                <li><a href="services.html">Servicii</a></li>
+                <li><a href="portfolio.html">Portofoliu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div style="display: flex; gap: 16px; align-items: center; z-index: 1101;">
+                <button id="themeToggle" style="background:none; border:none; cursor: pointer; color: var(--color-text-primary); display: flex; align-items: center;" aria-label="Toggle theme">
+                    <i data-lucide="moon" id="themeIcon" style="width: 20px; height: 20px; transition: transform 0.3s ease;"></i>
+                </button>
+                <button id="hamburger" class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
+    <!-- Mobile Navigation Overlay -->
     <div class="nav-overlay" id="navOverlay">
-        <a href="index.html">Acasă</a>
+        <a href="index.html" style="color: var(--color-accent); font-weight:600;">Acasă</a>
         <a href="about.html">Poveste</a>
         <a href="services.html">Servicii</a>
         <a href="portfolio.html">Portofoliu</a>
         <a href="contact.html">Contact</a>
     </div>
 
-    <div class="hero-container">
-        <img src="imgs/hero.png" alt="Flowers" class="hero-img" id="parallaxHero">
+    <!-- Parallax Hero Section -->
+    <header class="hero">
+        <img src="imgs/hero.png" 
+             alt="Florărie Artizanală în Sibiu" 
+             class="hero-img" 
+             id="parallaxHero" 
+             width="1920" 
+             height="1080" 
+             fetchpriority="high">
         <div class="hero-content">
-            <p class="reveal">Atelier Floral Sibiu</p>
-            <h1 class="reveal">Emoții livrate sub formă de flori.</h1>
-            <div class="reveal">
-                <a href="portfolio.html" class="btn">Explorează Colecția</a>
+            <span class="label" style="color: var(--color-pastel-1); text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Atelier Floral Contemporan</span>
+            <h1>Fiecare petală poartă o poveste.</h1>
+            <p>Design floral sustenabil și aranjamente premium personalizate, născute în inima Transilvaniei pentru a celebra momentele care contează.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#bouquetBuilder" class="btn">Creează Buchetul tău</a>
+                <a href="portfolio.html" class="btn btn-secondary" style="color: white; border-color: rgba(255,255,255,0.3);">Portofoliu</a>
             </div>
-        </div>
-    </div>
-
-    <section>
-        <div class="reveal" style="text-align: center;">
-            <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 20px;">Arta noastră</p>
-            <h2 style="font-size: 3rem; margin-bottom: 50px;">Servicii Delicate</h2>
         </div>
         
-        <div class="tabs-container">
-            <ul class="tabs-nav">
-                <li><button class="tab-btn active" data-tab="buchete">Buchete</button></li>
-                <li><button class="tab-btn" data-tab="nunta">Nuntă</button></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="buchete">
-                    <img src="imgs/service-1.png" alt="Buchete" class="tab-img">
-                    <div class="tab-text">
-                        <h3 style="font-size: 2.5rem; margin-bottom: 20px;">Buchete Custom</h3>
-                        <p style="margin-bottom: 30px;">Compoziții unice pentru mesaje fără cuvinte.</p>
-                        <a href="https://wa.me/40700000000?text=Bună%20ziua!%20Doresc%20să%20comand%20un%20buchet%20custom%20văzut%20pe%20site." class="btn">Comandă</a>
+        <!-- Elegant drifting scroll indicator -->
+        <a href="#despreNoi" style="position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 2; color: white; opacity: 0.8; display: flex; flex-direction: column; align-items: center; text-decoration: none; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">
+            <span>Explorează</span>
+            <i data-lucide="chevron-down" style="margin-top: 8px; animation: bounce 2s infinite; width: 16px; height: 16px;"></i>
+        </a>
+    </header>
+
+    <main>
+        <!-- Intro & Philosophy Section -->
+        <section id="despreNoi">
+            <div class="container">
+                <div class="builder-grid" style="align-items: center;">
+                    <div class="reveal">
+                        <span class="label">Manifestul Nostru</span>
+                        <h2>Design floral sustenabil și estetică ecologică.</h2>
+                        <p style="margin-bottom: var(--s-24);">Ne ghidăm după principii de design lent (slow design) și respect pentru natură. Asta înseamnă că prioritizăm florile din sere locale de sezon, folosim exclusiv ambalaje biodegradabile și evităm bureții florali sintetici dăunători.</p>
+                        <p style="margin-bottom: var(--s-32);">Pentru noi, arta florală nu înseamnă doar asamblarea unor tulpini, ci crearea unui dialog vizual între culori, parfumuri și texturi, menit să transmită sentimente pure.</p>
+                        <a href="about.html" class="btn btn-secondary">Află Povestea Noastră</a>
                     </div>
-                </div>
-                <div class="tab-pane" id="nunta">
-                    <img src="imgs/service-2.png" alt="Nunta" class="tab-img">
-                    <div class="tab-text">
-                        <h3 style="font-size: 2.5rem; margin-bottom: 20px;">Aranjamente Nuntă</h3>
-                        <p style="margin-bottom: 30px;">Transformăm ziua ta într-o poveste magică.</p>
-                        <a href="https://wa.me/40700000000?text=Bună%20ziua!%20Doresc%20o%20ofertă%20pentru%20aranjamente%20de%20nuntă." class="btn">Cere Ofertă</a>
+                    <div class="reveal" style="position: relative; border-radius: var(--border-radius-cards); overflow: hidden; box-shadow: var(--shadow-l2);">
+                        <img src="imgs/about.png" alt="Aranjament floral contemporan în Sibiu" style="width: 100%; height: 480px; object-fit: cover; transition: transform 0.8s var(--ease-standard);" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                        <div style="position: absolute; bottom: 24px; left: 24px; right: 24px; padding: 24px; background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(20px) saturate(140%); -webkit-backdrop-filter: blur(20px) saturate(140%); border: 1px solid rgba(255,255,255,0.4); border-radius: 12px; color: #12151c;">
+                            <h3 style="font-size: 18px; margin-bottom: 4px;">De ce sustenabil?</h3>
+                            <p style="font-size: 13px; color: #4a5265; line-height: 1.5;">90% din materialele noastre sunt complet biodegradabile. Susținem comunitățile locale de grădinari din România.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section style="background: var(--surface);">
-        <div class="carousel">
-            <div class="carousel-track">
-                <div class="testimonial-slide">
-                    <img src="imgs/testimonial-1.png" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;">
-                    <blockquote>"Cele mai frumoase flori din Sibiu."</blockquote>
-                    <cite>— Maria Ionescu</cite>
+        <!-- Dynamic Bouquet Builder Section -->
+        <section id="bouquetBuilder" style="background: rgba(var(--color-pastel-1-rgb), 0.04); border-top: 1px solid var(--color-border-default); border-bottom: 1px solid var(--color-border-default);">
+            <div class="container">
+                <div style="text-align: center; max-width: 700px; margin: 0 auto 64px;">
+                    <span class="label">Atelier Interactiv</span>
+                    <h2>Creează-ți propriul buchet digital.</h2>
+                    <p>Alege stilul, florile preferate și tipul de ambalaj. Simulatorul nostru va estima costurile instant, iar tu poți plasa o comandă rapidă direct pe WhatsApp!</p>
+                </div>
+
+                <div class="builder-grid">
+                    <!-- Builder Preview Box (SVG layers dynamically colored) -->
+                    <div class="builder-preview-box reveal">
+                        <div class="builder-canvas" id="builderCanvas">
+                            <!-- Wrapper (SVG Paper wrapping) -->
+                            <div class="builder-layer" id="layerWrapping" style="z-index: 1;">
+                                <svg viewBox="0 0 400 400" class="flower-svg-preview" id="svgWrapping">
+                                    <!-- Wrapping paper paths -->
+                                    <path d="M 120 280 L 200 370 L 280 280 L 320 180 L 80 180 Z" fill="rgba(196, 178, 155, 0.85)" stroke="rgba(0,0,0,0.05)" stroke-width="2" id="wrappingPath"/>
+                                    <!-- Ribbon tie -->
+                                    <circle cx="200" cy="305" r="10" fill="rgba(255,255,255,0.9)" />
+                                    <path d="M 190 305 Q 160 320 150 340 M 210 305 Q 240 320 250 340" stroke="rgba(255,255,255,0.9)" stroke-width="3" fill="none" />
+                                </svg>
+                            </div>
+                            
+                            <!-- Stems Layer -->
+                            <div class="builder-layer" style="z-index: 2;">
+                                <svg viewBox="0 0 400 400" class="flower-svg-preview">
+                                    <path d="M 170 180 L 195 310 M 200 180 L 200 310 M 230 180 L 205 310" stroke="rgba(76, 115, 85, 0.8)" stroke-width="4" stroke-linecap="round"/>
+                                    <path d="M 150 180 L 192 310 M 250 180 L 208 310" stroke="rgba(66, 105, 75, 0.6)" stroke-width="3" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+
+                            <!-- Foliage Layer (Eucalyptus) -->
+                            <div class="builder-layer" id="layerFoliage" style="z-index: 3; opacity: 1;">
+                                <svg viewBox="0 0 400 400" class="flower-svg-preview">
+                                    <!-- Left branch -->
+                                    <path d="M 180 200 Q 120 150 100 120" stroke="rgba(94, 126, 114, 0.8)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="100" cy="120" r="14" fill="rgba(114, 146, 134, 0.7)" />
+                                    <circle cx="120" cy="140" r="16" fill="rgba(114, 146, 134, 0.7)" />
+                                    <circle cx="145" cy="165" r="18" fill="rgba(114, 146, 134, 0.7)" />
+                                    <!-- Right branch -->
+                                    <path d="M 220 200 Q 280 150 300 120" stroke="rgba(94, 126, 114, 0.8)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                    <circle cx="300" cy="120" r="14" fill="rgba(114, 146, 134, 0.7)" />
+                                    <circle cx="280" cy="140" r="16" fill="rgba(114, 146, 134, 0.7)" />
+                                    <circle cx="255" cy="165" r="18" fill="rgba(114, 146, 134, 0.7)" />
+                                </svg>
+                            </div>
+
+                            <!-- Primary Flower 1 (Roses) -->
+                            <div class="builder-layer" id="layerFlower1" style="z-index: 4; opacity: 1; transform: scale(1);">
+                                <svg viewBox="0 0 400 400" class="flower-svg-preview" id="svgRoses">
+                                    <!-- Central Roses (Pinkish by default) -->
+                                    <g class="rose-flower" transform="translate(200, 150)">
+                                        <circle cx="0" cy="0" r="28" fill="rgba(240, 158, 175, 0.95)" stroke="rgba(255,255,255,0.2)"/>
+                                        <circle cx="0" cy="0" r="18" fill="rgba(220, 128, 145, 0.95)"/>
+                                        <circle cx="0" cy="0" r="8" fill="rgba(190, 98, 115, 0.95)"/>
+                                    </g>
+                                    <g class="rose-flower" transform="translate(150, 180)">
+                                        <circle cx="0" cy="0" r="24" fill="rgba(240, 158, 175, 0.95)" stroke="rgba(255,255,255,0.2)"/>
+                                        <circle cx="0" cy="0" r="15" fill="rgba(220, 128, 145, 0.95)"/>
+                                        <circle cx="0" cy="0" r="6" fill="rgba(190, 98, 115, 0.95)"/>
+                                    </g>
+                                    <g class="rose-flower" transform="translate(250, 180)">
+                                        <circle cx="0" cy="0" r="24" fill="rgba(240, 158, 175, 0.95)" stroke="rgba(255,255,255,0.2)"/>
+                                        <circle cx="0" cy="0" r="15" fill="rgba(220, 128, 145, 0.95)"/>
+                                        <circle cx="0" cy="0" r="6" fill="rgba(190, 98, 115, 0.95)"/>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Primary Flower 2 (Peonies) -->
+                            <div class="builder-layer" id="layerFlower2" style="z-index: 5; opacity: 0; transform: scale(0.8);">
+                                <svg viewBox="0 0 400 400" class="flower-svg-preview" id="svgPeonies">
+                                    <!-- Large Peonies (Lavendar/White by default) -->
+                                    <g class="peony-flower" transform="translate(200, 110)">
+                                        <!-- Petals -->
+                                        <circle cx="-14" cy="0" r="18" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="14" cy="0" r="18" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="-14" r="18" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="14" r="18" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="0" r="16" fill="rgba(195, 160, 225, 0.95)"/>
+                                        <circle cx="0" cy="0" r="8" fill="rgba(253, 224, 71, 0.9)"/>
+                                    </g>
+                                    <g class="peony-flower" transform="translate(130, 130)">
+                                        <circle cx="-10" cy="0" r="14" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="10" cy="0" r="14" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="-10" r="14" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="10" r="14" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="0" r="12" fill="rgba(195, 160, 225, 0.95)"/>
+                                        <circle cx="0" cy="0" r="6" fill="rgba(253, 224, 71, 0.9)"/>
+                                    </g>
+                                    <g class="peony-flower" transform="translate(270, 130)">
+                                        <circle cx="-10" cy="0" r="14" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="10" cy="0" r="14" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="-10" r="14" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="10" r="14" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="0" r="12" fill="rgba(195, 160, 225, 0.95)"/>
+                                        <circle cx="0" cy="0" r="6" fill="rgba(253, 224, 71, 0.9)"/>
+                                    </g>
+                                </svg>
+                            </div>
+
+                            <!-- Accent Flower (Lavender/Field Flowers) -->
+                            <div class="builder-layer" id="layerFlowerAccent" style="z-index: 6; opacity: 0; transform: translateY(10px);">
+                                <svg viewBox="0 0 400 400" class="flower-svg-preview" id="svgAccent">
+                                    <!-- Tall lavender branches pointing out -->
+                                    <g stroke="rgba(168, 85, 247, 0.8)" stroke-width="4" stroke-linecap="round" fill="none">
+                                        <!-- Left branch -->
+                                        <path d="M 160 160 L 110 80 M 110 80 L 105 70 M 120 90 L 115 80 M 100 70 L 95 60"/>
+                                        <!-- Right branch -->
+                                        <path d="M 240 160 L 290 80 M 290 80 L 295 70 M 280 90 L 285 80 M 300 70 L 305 60"/>
+                                    </g>
+                                    <g fill="rgba(168, 85, 247, 0.9)">
+                                        <circle cx="110" cy="80" r="5"/> <circle cx="105" cy="70" r="4"/> <circle cx="100" cy="60" r="3"/>
+                                        <circle cx="290" cy="80" r="5"/> <circle cx="295" cy="70" r="4"/> <circle cx="300" cy="60" r="3"/>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Builder Controls -->
+                    <div class="builder-controls reveal">
+                        <!-- Step 1: Stilul de Design -->
+                        <div>
+                            <p class="builder-step-title">Pasul 1: Stilul aranjamentului</p>
+                            <div class="choice-grid">
+                                <button class="choice-btn active" data-step="style" data-val="classic" data-price="0">
+                                    <i data-lucide="layout-grid"></i>
+                                    <span>Clasic / Dens</span>
+                                </button>
+                                <button class="choice-btn" data-step="style" data-val="modern" data-price="25">
+                                    <i data-lucide="sparkles"></i>
+                                    <span>Modern / Aerat</span>
+                                </button>
+                                <button class="choice-btn" data-step="style" data-val="boho" data-price="40">
+                                    <i data-lucide="wind"></i>
+                                    <span>Sălbatic / Boem</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Florile Principale -->
+                        <div>
+                            <p class="builder-step-title">Pasul 2: Florile Principale</p>
+                            <div class="choice-grid">
+                                <button class="choice-btn active" data-step="flower" data-val="roses" data-price="130">
+                                    <i data-lucide="heart" style="color: rgba(240, 158, 175, 1);"></i>
+                                    <span>Trandafiri Pastel</span>
+                                </button>
+                                <button class="choice-btn" data-step="flower" data-val="peonies" data-price="180">
+                                    <i data-lucide="star" style="color: rgba(195, 160, 225, 1);"></i>
+                                    <span>Bujori Regali</span>
+                                </button>
+                                <button class="choice-btn" data-step="flower" data-val="mix" data-price="160">
+                                    <i data-lucide="shuffle" style="color: var(--color-pastel-1);"></i>
+                                    <span>Mix Artizanal</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Verdeață & Accente -->
+                        <div>
+                            <p class="builder-step-title">Pasul 3: Verdeață & Elemente de Accent</p>
+                            <div class="choice-grid">
+                                <button class="choice-btn active" data-step="accent" data-val="eucalyptus" data-price="20">
+                                    <i data-lucide="leaf" style="color: #729286;"></i>
+                                    <span>Eucalipt Argintiu</span>
+                                </button>
+                                <button class="choice-btn" data-step="accent" data-val="lavender" data-price="35">
+                                    <i data-lucide="award" style="color: #a855f7;"></i>
+                                    <span>Levănțică & Câmp</span>
+                                </button>
+                                <button class="choice-btn" data-step="accent" data-val="both" data-price="50">
+                                    <i data-lucide="plus-circle" style="color: var(--color-pastel-5);"></i>
+                                    <span>Mix Premium</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Ambalajul -->
+                        <div>
+                            <p class="builder-step-title">Pasul 4: Ambalaj Ecologic</p>
+                            <div class="choice-grid">
+                                <button class="choice-btn active" data-step="wrapping" data-val="kraft" data-price="10" data-color="rgba(196, 178, 155, 0.85)">
+                                    <i data-lucide="box"></i>
+                                    <span>Hârtie Kraft</span>
+                                </button>
+                                <button class="choice-btn" data-step="wrapping" data-val="linen" data-price="25" data-color="rgba(235, 230, 215, 0.9)">
+                                    <i data-lucide="layers"></i>
+                                    <span>Pânză de In</span>
+                                </button>
+                                <button class="choice-btn" data-step="wrapping" data-val="none" data-price="0" data-color="rgba(255,255,255,0)">
+                                    <i data-lucide="scissors"></i>
+                                    <span>Doar Șnur (Eco)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Summary and order -->
+                        <div class="builder-summary-bar">
+                            <div>
+                                <span class="label" style="margin-bottom:0;">Preț Estimat</span>
+                                <div class="builder-price" id="builderTotalPrice">160 RON</div>
+                            </div>
+                            <button id="btnOrderBouquet" class="btn" style="height:44px; padding:0 24px;">Comandă Buchet</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
+        <!-- Dynamic Recommendation Quiz -->
+        <section id="floralQuiz">
+            <div class="container">
+                <div class="quiz-container">
+                    <div class="glass-card quiz-card reveal">
+                        <!-- Step Progress -->
+                        <div class="quiz-progress">
+                            <div class="quiz-bar" id="quizBar"></div>
+                        </div>
+
+                        <!-- Step 1 -->
+                        <div class="quiz-step active" data-step="1">
+                            <span class="label">Consultant Virtual — Pasul 1 din 3</span>
+                            <h2 style="font-size: 24px; margin-top:8px;">Care este ocazia principală pentru flori?</h2>
+                            <p style="font-size:14px;">Selectează scopul cadoului pentru a recomanda volumul și estetica ideală.</p>
+                            <div class="quiz-options">
+                                <div class="quiz-opt" data-ans="birthday">
+                                    <i data-lucide="gift"></i>
+                                    <h4>Aniversare / Cadou</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="wedding">
+                                    <i data-lucide="gem"></i>
+                                    <h4>Nuntă / Decor Eveniment</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="spontaneous">
+                                    <i data-lucide="smile"></i>
+                                    <h4>Gest Spontan / Dragoste</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="sorry">
+                                    <i data-lucide="shield-alert"></i>
+                                    <h4>Scuze / Liniște</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="quiz-step" data-step="2">
+                            <span class="label">Consultant Virtual — Pasul 2 din 3</span>
+                            <h2 style="font-size: 24px; margin-top:8px;">Ce stare sau atmosferă dorești să transmiți?</h2>
+                            <p style="font-size:14px;">Fiecare culoare și floare vibrează la o altă intensitate emoțională.</p>
+                            <div class="quiz-options">
+                                <div class="quiz-opt" data-ans="elegance">
+                                    <i data-lucide="crown"></i>
+                                    <h4>Eleganță & Lux discret</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="warmth">
+                                    <i data-lucide="sun"></i>
+                                    <h4>Căldură & Prietenie</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="passion">
+                                    <i data-lucide="flame"></i>
+                                    <h4>Pasiune & Dragoste aprinsă</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="calm">
+                                    <i data-lucide="activity"></i>
+                                    <h4>Calm & Armonie / Pace</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="quiz-step" data-step="3">
+                            <span class="label">Consultant Virtual — Pasul 3 din 3</span>
+                            <h2 style="font-size: 24px; margin-top:8px;">Care este bugetul tău orientativ?</h2>
+                            <p style="font-size:14px;">Ajustăm speciile și mărimea aranjamentului pentru a se încadra perfect.</p>
+                            <div class="quiz-options">
+                                <div class="quiz-opt" data-ans="budget">
+                                    <i data-lucide="coins"></i>
+                                    <h4>150 - 250 RON</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="standard">
+                                    <i data-lucide="banknote"></i>
+                                    <h4>250 - 450 RON</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="premium">
+                                    <i data-lucide="gem"></i>
+                                    <h4>450 - 800 RON</h4>
+                                </div>
+                                <div class="quiz-opt" data-ans="custom">
+                                    <i data-lucide="contact-2"></i>
+                                    <h4>Fără Limită / Personalizat</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step Results -->
+                        <div class="quiz-step" id="quizResults">
+                            <div class="quiz-results-card">
+                                <span class="label">Recomandarea Noastră</span>
+                                <h2 style="font-size: 24px; margin-top:8px;" id="quizResultTitle">Buchetul „Poezie în Roz”</h2>
+                                <img src="imgs/service-1.png" alt="Recomandare florală" id="quizResultImg">
+                                <p style="font-size:14px; max-width: 450px;" id="quizResultDesc">Un buchet bogat în trandafiri pastel, flori de câmp și eucalipt, aranjat asimetric pe structură ecologică. Perfect pentru a aduce zâmbete.</p>
+                                <div style="font-family: var(--font-serif); font-size: 24px; font-weight:600; color: var(--color-accent);" id="quizResultPrice">280 RON</div>
+                                <div style="display: flex; gap: 16px; margin-top: 12px; width: 100%; justify-content: center;">
+                                    <button class="btn btn-secondary" id="btnRestartQuiz">Restart Chestionar</button>
+                                    <a href="#" class="btn" id="btnOrderQuizResult">Comandă Direct</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Preview Section -->
+        <section style="background: rgba(var(--color-pastel-1-rgb), 0.02); border-top: 1px solid var(--color-border-default);">
+            <div class="container">
+                <div class="builder-grid" style="align-items: flex-end; margin-bottom: 64px;">
+                    <div>
+                        <span class="label">Colecția Noastră</span>
+                        <h2>Arta florilor, ridicată la rang de principiu.</h2>
+                    </div>
+                    <div style="text-align: right;">
+                        <a href="services.html" class="btn btn-secondary" style="gap: 8px;">
+                            <span>Vezi Toate Serviciile</span>
+                            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
+                    <!-- Boutique -->
+                    <article class="card reveal" style="display: flex; flex-direction: column; gap: 24px;">
+                        <img src="imgs/service-1.png" alt="Buchete Artizanale" style="width: 100%; border-radius: 8px; aspect-ratio: 4/3; object-fit: cover;">
+                        <div>
+                            <span class="label">Acasă & Cadouri</span>
+                            <h3 style="margin-bottom: 8px;">Buchete Boutique</h3>
+                            <p style="font-size: 14px;">Aranjamente unice create cu flori proaspete recoltate zilnic, oferite într-un ambalaj premium organic care protejează mediul.</p>
+                        </div>
+                        <a href="services.html" class="btn" style="margin-top: auto;">Explorează</a>
+                    </article>
+
+                    <!-- Evenimente (Featured) -->
+                    <article class="card reveal" style="display: flex; flex-direction: column; gap: 24px; border-color: var(--color-border-strong); background: rgba(var(--color-accent-rgb), 0.05);">
+                        <img src="imgs/service-2.png" alt="Decor Evenimente" style="width: 100%; border-radius: 8px; aspect-ratio: 4/3; object-fit: cover;">
+                        <div>
+                            <span class="label">Viziuni de Amploare</span>
+                            <h3 style="margin-bottom: 8px;">Decor Evenimente & Nunți</h3>
+                            <p style="font-size: 14px;">Planificare vizuală completă și design floral personalizat pentru nunți, botezuri sau petreceri private în toată Transilvania.</p>
+                        </div>
+                        <a href="services.html" class="btn" style="margin-top: auto;">Cere Ofertă</a>
+                    </article>
+
+                    <!-- Abonamente -->
+                    <article class="card reveal" style="display: flex; flex-direction: column; gap: 24px;">
+                        <img src="imgs/service-3.png" alt="Abonamente Florale" style="width: 100%; border-radius: 8px; aspect-ratio: 4/3; object-fit: cover;">
+                        <div>
+                            <span class="label">Eleganță Săptămânală</span>
+                            <h3 style="margin-bottom: 8px;">Abonamente Home & Corporate</h3>
+                            <p style="font-size: 14px;">Aranjamente florale livrate periodic la sediul companiei tale sau direct acasă, în vaze elegante oferite în regim de custodie.</p>
+                        </div>
+                        <a href="services.html" class="btn" style="margin-top: auto;">Detalii Abonament</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Carousel Section -->
+        <section style="border-top: 1px solid var(--color-border-default); border-bottom: 1px solid var(--color-border-default);">
+            <div class="container">
+                <div style="text-align: center; max-width: 600px; margin: 0 auto 64px;">
+                    <span class="label">Gânduri Bune</span>
+                    <h2>Ce spun clienții noștri fericiți.</h2>
+                </div>
+
+                <div class="testimonial-carousel reveal">
+                    <div class="testimonial-track" id="testimonialTrack">
+                        <!-- Slide 1 -->
+                        <div class="testimonial-slide">
+                            <div class="testimonial-card">
+                                <img src="imgs/testimonial-1.png" alt="Andreea M." class="testimonial-avatar">
+                                <p class="testimonial-text">„Am comandat decorul floral pentru nuntă și a fost absolut spectaculos! Oaspeții au fost impresionați de naturalețea și aranjamentele asimetrice, exact pe gustul nostru. Recomand cu căldură echipa de la Petale și Poveste!”</p>
+                                <h4 class="testimonial-author">Andreea Munteanu</h4>
+                                <span class="testimonial-city">Sibiu</span>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="testimonial-slide">
+                            <div class="testimonial-card">
+                                <img src="imgs/testimonial-2.png" alt="Mihai D." class="testimonial-avatar">
+                                <p class="testimonial-text">„Abonamentul floral de birou ne-a schimbat atmosfera complet în recepție! În fiecare zi de luni primim o vază cu flori proaspete și un design mereu diferit, care rezistă excelent pe tot parcursul săptămânii.”</p>
+                                <h4 class="testimonial-author">Mihai Dumitrescu</h4>
+                                <span class="testimonial-city">Cisnădie</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial Navigation -->
+                    <div class="carousel-nav">
+                        <button class="carousel-btn" id="btnPrevTestimonial" aria-label="Previous">
+                            <i data-lucide="chevron-left"></i>
+                        </button>
+                        <button class="carousel-btn" id="btnNextTestimonial" aria-label="Next">
+                            <i data-lucide="chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
     <footer>
-        <div class="footer-grid">
-            <div class="footer-about">
-                <a href="index.html" class="logo" style="font-size: 2rem;">P & P</a>
-                <p style="margin-top: 20px;">Atelierul tău premium din inima Sibiului.</p>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col" style="grid-column: span 1.5;">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                        <i data-lucide="flower" style="color: var(--color-accent);"></i>
+                        <span>Petale & Poveste</span>
+                    </a>
+                    <p style="font-size: 14px; max-width: 320px; margin-bottom: 24px;">Creăm aranjamente florale contemporane bazate pe sustenabilitate, design ecologic și dragoste pentru artă.</p>
+                    <div style="display: flex; gap: 16px; color: var(--color-text-secondary);">
+                        <a href="#" aria-label="Instagram"><i data-lucide="instagram" style="width: 20px; height: 20px;"></i></a>
+                        <a href="#" aria-label="Facebook"><i data-lucide="facebook" style="width: 20px; height: 20px;"></i></a>
+                        <a href="https://wa.me/40700000000" aria-label="WhatsApp"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Linkuri Rapide</h4>
+                    <ul>
+                        <li><a href="index.html">Acasă</a></li>
+                        <li><a href="about.html">Povestea Noastră</a></li>
+                        <li><a href="services.html">Servicii & Tarife</a></li>
+                        <li><a href="portfolio.html">Portofoliu creații</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Atelierul Nostru</h4>
+                    <p style="font-size: 14px; margin-bottom: 8px;">Strada General Magheru 12,<br>Sibiu, România</p>
+                    <p style="font-size: 14px; font-weight:600;">Luni - Vineri: 09:00 - 19:00<br>Sâmbătă: 10:00 - 15:00</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Demo Management</h4>
+                    <ul>
+                        <li><a href="admin.html" style="font-weight: 600; color: var(--color-accent);"><i data-lucide="lock" style="width:12px; height:12px; display:inline-block; margin-right:4px;"></i>Panou Admin</a></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <p style="font-weight: 600; margin-bottom: 20px;">Link-uri Rapide</p>
-                <ul style="list-style: none; opacity: 0.7;">
-                    <li><a href="about.html" style="color: inherit; text-decoration: none;">Poveste</a></li>
-                    <li><a href="contact.html" style="color: inherit; text-decoration: none;">Contact</a></li>
-                </ul>
+
+            <div style="padding-top: 32px; border-top: 1px solid var(--color-border-default); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <p style="font-size: 12px; color: var(--color-text-secondary);">© 2026 Petale și Poveste. Toate drepturile rezervate.</p>
+                <p style="font-size: 12px; color: var(--color-text-secondary);">Design & Cod realizat cu rafinament în Sibiu.</p>
             </div>
         </div>
     </footer>
 
-    <a href="https://wa.me/40700000000" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-2.31 0-4.184 1.874-4.184 4.184 0 2.31 1.874 4.184 4.184 4.184 2.31 0 4.184-1.874 4.184-4.184 0-2.31-1.874-4.184-4.184-4.184zm0 6.694c-1.383 0-2.51-1.127-2.51-2.51s1.127-2.51 2.51-2.51 2.51 1.127 2.51 2.51-1.127 2.51-2.51 2.51zm0-10.866C6.48 2 2 6.48 2 12.031c0 1.77.462 3.428 1.266 4.869L2 22l5.225-1.371a9.954 9.954 0 004.806 1.229c5.551 0 10.031-4.48 10.031-10.031S17.582 2 12.031 2zm0 18.39c-1.574 0-3.047-.406-4.328-1.114l-.31-.173-3.21.843.858-3.125-.19-.301a8.31 8.31 0 01-1.275-4.489c0-4.61 3.75-8.36 8.36-8.36s8.36 3.75 8.36 8.36-3.75 8.36-8.36 8.36z"/></svg>
+    <!-- Floating WhatsApp Trigger -->
+    <a href="https://wa.me/40700000000" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+        <i data-lucide="message-circle" style="width: 28px; height: 28px; fill: white;"></i>
     </a>
-    <script src="script.js"></script>
-    <script>
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById(btn.dataset.tab).classList.add('active');
-            });
-        });
-    </script>
+
+    <!-- Florist Support Live Chat Drawer -->
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-button" id="btnToggleChat" aria-label="Chat support">
+            <i data-lucide="message-square" style="width: 26px; height: 26px;"></i>
+        </button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <img src="imgs/testimonial-1.png" alt="Ana - Florist" class="chat-avatar">
+                <div class="chat-header-info">
+                    <h4>Ana, florista ta</h4>
+                    <span>Activă acum (Demo)</span>
+                </div>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-bubble florist">
+                    Bună! Sunt Ana, designera ta florală de la Petale și Poveste. Cu ce te pot ajuta astăzi? 😊
+                </div>
+            </div>
+            <form class="chat-input-bar" id="chatForm">
+                <input type="text" id="chatInput" placeholder="Scrie un mesaj..." required>
+                <button type="submit" class="chat-send-btn" aria-label="Send">
+                    <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bouquet Builder Success Modal -->
+    <div class="lightbox" id="builderSuccessModal">
+        <div class="lightbox-content" style="max-width: 500px; text-align: center;">
+            <div style="padding: 40px; display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(76, 175, 80, 0.15); display: flex; align-items: center; justify-content: center; color: #4caf50;">
+                    <i data-lucide="check-circle-2" style="width: 40px; height: 40px;"></i>
+                </div>
+                <h2>Buchetul tău este pregătit pentru finalizare!</h2>
+                <p id="builderSuccessText" style="font-size: 14px;">Rezumat: Buchet Clasic cu Trandafiri și Eucalipt, ambalat în Kraft ecologic.</p>
+                <div style="font-size: 24px; font-weight:600; font-family: var(--font-serif); color: var(--color-accent);" id="builderSuccessPrice">160 RON</div>
+                <div style="display: flex; gap: 12px; width: 100%; margin-top: 10px;">
+                    <button class="btn btn-secondary" style="flex:1;" id="btnCloseSuccessModal">Modifică</button>
+                    <a href="#" class="btn" style="flex:1.5; gap: 8px;" id="btnConfirmWhatsAppOrder">
+                        <i data-lucide="message-circle" style="width:16px; height:16px; fill: white;"></i>
+                        <span>WhatsApp Order</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
 </body>
 </html>

@@ -3,93 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petale și Poveste | Servicii</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;700&family=Jost:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .accordion { max-width: 900px; margin: 0 auto; }
-        .accordion-item { border-bottom: 1px solid var(--border); }
-        .accordion-header { padding: 30px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; opacity: 0.8; }
-        .accordion-item.active .accordion-content { max-height: 200px; padding-bottom: 30px; }
+    <title>Petale și Poveste | Servicii & Tarife</title>
+    
+    <script>
+        (function() {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 
-        .pricing-table { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 80px; }
-        .price-card { background: var(--surface); padding: 50px 30px; text-align: center; border: 1px solid var(--border); transition: var(--transition); }
-        .price-card.featured { border: 2px solid var(--accent); transform: scale(1.05); }
-        .price-card .price { font-family: var(--font-serif); font-size: 3rem; margin: 20px 0; }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="light">
+<body class="has-custom-cursor">
+    <!-- Custom Cursor -->
     <div id="cursor"></div>
-    <nav>
-        <a href="index.html" class="logo">P & P</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Acasă</a></li>
-            <li><a href="about.html">Poveste</a></li>
-            <li><a href="services.html">Servicii</a></li>
-            <li><a href="portfolio.html">Portofoliu</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <button id="themeToggle" style="background:none; border:none; color:inherit; cursor: pointer;">🌓</button>
-            <button id="hamburger" class="hamburger">
-                <span></span><span></span><span></span>
-            </button>
+
+    <!-- Navigation Header -->
+    <nav id="navbar">
+        <div class="container" style="height: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo">
+                <i data-lucide="flower" style="color: var(--color-accent); width: 28px; height: 28px;"></i>
+                <span>Petale & Poveste</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Acasă</a></li>
+                <li><a href="about.html">Poveste</a></li>
+                <li class="active"><a href="services.html">Servicii</a></li>
+                <li><a href="portfolio.html">Portofoliu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div style="display: flex; gap: 16px; align-items: center; z-index: 1101;">
+                <button id="themeToggle" style="background:none; border:none; cursor: pointer; color: var(--color-text-primary); display: flex; align-items: center;" aria-label="Toggle theme">
+                    <i data-lucide="moon" id="themeIcon" style="width: 20px; height: 20px; transition: transform 0.3s ease;"></i>
+                </button>
+                <button id="hamburger" class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
+    <!-- Mobile Navigation Overlay -->
     <div class="nav-overlay" id="navOverlay">
         <a href="index.html">Acasă</a>
         <a href="about.html">Poveste</a>
-        <a href="services.html">Servicii</a>
+        <a href="services.html" style="color: var(--color-accent); font-weight:600;">Servicii</a>
         <a href="portfolio.html">Portofoliu</a>
         <a href="contact.html">Contact</a>
     </div>
 
-    <section>
-        <h2 class="reveal" style="text-align: center; font-size: 3.5rem; margin-bottom: 50px;">Servicii Premium</h2>
-        <div class="accordion reveal">
-            <div class="accordion-item active">
-                <div class="accordion-header"><h3>Consultanță Design Floral</h3><span>+</span></div>
-                <div class="accordion-content"><p>Definim conceptul vizual al evenimentului tău.</p></div>
+    <!-- Main Content -->
+    <main style="padding-top: 120px;">
+        <!-- Page Header -->
+        <section style="padding: 60px 0 20px;">
+            <div class="container">
+                <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+                    <span class="label">Colecție Servicii</span>
+                    <h1>Alegerea perfectă pentru momente memorabile.</h1>
+                    <p>Fie că este vorba despre un buchet boutique din flori locale de sezon sau despre scenografia completă a unei nunți, oferim soluții de design premium, adaptate viziunii tale.</p>
+                </div>
             </div>
-            <div class="accordion-item">
-                <div class="accordion-header"><h3>Abonamente Corporate</h3><span>+</span></div>
-                <div class="accordion-content"><p>Prospețime săptămânală pentru biroul tău.</p></div>
+        </section>
+
+        <!-- Services Cards Section -->
+        <section style="padding: 60px 0;">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
+                    <!-- Boutique -->
+                    <article class="card reveal" style="display: flex; flex-direction: column; gap: 24px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <span class="label">Popular</span>
+                                <h3 style="margin-top: 4px;">Buchet Boutique</h3>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 24px; font-weight: 700; color: var(--color-accent);">180 RON</p>
+                                <p class="label" style="font-size: 10px; margin:0;">per buchet</p>
+                            </div>
+                        </div>
+                        <p style="font-size: 14px;">Un buchet artizanal unic de flori proaspete de sezon, conceput în stil contemporan asimetric, livrat cu ambalaj complet reciclabil sau legat eco doar cu șnur.</p>
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: var(--color-text-secondary); margin-bottom: 12px;">
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> Flori locale proaspete recoltate zilnic</li>
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> Design personalizat în funcție de starea dorită</li>
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> Caligrafie manuală pe cartonaș de bumbac</li>
+                        </ul>
+                        <a href="index.html#bouquetBuilder" class="btn" style="width: 100%; margin-top: auto;">Creează în Simulator</a>
+                    </article>
+
+                    <!-- Eveniment (Featured) -->
+                    <article class="card reveal" style="display: flex; flex-direction: column; gap: 24px; border-color: var(--color-border-strong); background: rgba(var(--color-accent-rgb), 0.04);">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <span class="label" style="color: var(--color-pastel-1);">Premium</span>
+                                <h3 style="margin-top: 4px;">Pachet Eveniment</h3>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 24px; font-weight: 700; color: var(--color-accent);">2500+ RON</p>
+                                <p class="label" style="font-size: 10px; margin:0;">design complet</p>
+                            </div>
+                        </div>
+                        <p style="font-size: 14px;">Serviciu complet de scenografie și decor floral pentru nunți, botezuri sau evenimente private de mare anvergură. Include consultanță personalizată.</p>
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: var(--color-text-secondary); margin-bottom: 12px;">
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> Consultanță vizuală 1:1 și moodboard creativ</li>
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> Buchetul miresei, al nașei și lumânări</li>
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> Decor prezidiu, aranjamente mese și arcuri florale</li>
+                        </ul>
+                        <a href="#eventCalculator" class="btn" style="width: 100%; margin-top: auto;">Calculează Costul</a>
+                    </article>
+
+                    <!-- Enterprise -->
+                    <article class="card reveal" style="display: flex; flex-direction: column; gap: 24px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <span class="label">Abonament</span>
+                                <h3 style="margin-top: 4px;">Abonament Floral</h3>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 24px; font-weight: 700; color: var(--color-accent);">650 RON</p>
+                                <p class="label" style="font-size: 10px; margin:0;">per lună</p>
+                            </div>
+                        </div>
+                        <p style="font-size: 14px;">Livrări săptămânale de aranjamente proaspete de sezon pentru birouri, showroom-uri, restaurante, clinici sau pentru a-ți decora propria sufragerie.</p>
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: var(--color-text-secondary); margin-bottom: 12px;">
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> 4 livrări garantate lunar (în fiecare luni dimineață)</li>
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> Vaze premium de sticlă în custodie completă</li>
+                            <li style="display: flex; align-items: center; gap: 8px;"><i data-lucide="check" style="width:16px; height:16px; color: var(--color-accent);"></i> Împrospătare și preluare flori anterioare</li>
+                        </ul>
+                        <a href="https://wa.me/40700000000?text=Buna!%20Sunt%20interesat%20de%20un%20abonament%20floral%20pentru%20locatie." class="btn btn-secondary" style="width: 100%; margin-top: auto;">Abonează-te</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Cost Calculator Section -->
+        <section id="eventCalculator" style="background: rgba(var(--color-pastel-1-rgb), 0.04); border-top: 1px solid var(--color-border-default); border-bottom: 1px solid var(--color-border-default);">
+            <div class="container">
+                <div style="text-align: center; max-width: 600px; margin: 0 auto 48px;">
+                    <span class="label">Configurator Inteligente</span>
+                    <h2>Calculator de buget pentru Evenimente.</h2>
+                    <p>Configurează necesarul pentru nunta sau evenimentul tău privat și obține o estimare financiară de bază pe loc.</p>
+                </div>
+
+                <div class="glass-card calc-card reveal">
+                    <div class="calc-grid">
+                        <div class="calc-controls">
+                            <!-- Slider: Numar Mese Invitat -->
+                            <div class="calc-group">
+                                <div class="calc-label-row">
+                                    <label class="label" style="margin:0;">Număr Mese Invitați (Aranjamente Mese)</label>
+                                    <span class="calc-val-display" id="valTables">8 mese</span>
+                                </div>
+                                <input type="range" id="rangeTables" min="0" max="30" value="8" step="1">
+                            </div>
+
+                            <!-- Selector: Tip Decor Prezidiu -->
+                            <div class="calc-group">
+                                <label class="label">Decor Masă Prezidiu (Mirii)</label>
+                                <select id="selectPresidium">
+                                    <option value="none">Fără decor prezidiu</option>
+                                    <option value="standard" selected>Aranjament Standard (Sustenabil local) [+400 RON]</option>
+                                    <option value="premium">Ghirlandă bogată premium [+800 RON]</option>
+                                    <option value="deluxe">Arhitectură florală organică de mari dimensiuni [+1500 RON]</option>
+                                </select>
+                            </div>
+
+                            <!-- Selector: Arcada Florala -->
+                            <div class="calc-group">
+                                <label class="label">Arcadă / Aranjamente Ceremonie</label>
+                                <select id="selectArch">
+                                    <option value="none" selected>Fără arcadă florală</option>
+                                    <option value="semi">Semiorganică (Eucalipt & Flori cheie) [+1000 RON]</option>
+                                    <option value="full">Arcadă Bogată Rotundă (Complet înflorită) [+2200 RON]</option>
+                                    <option value="installation">Instalație asimetrică contemporană suspendată [+3500 RON]</option>
+                                </select>
+                            </div>
+
+                            <!-- Checkboxes: Accesorii Mireasa & Lumari -->
+                            <div class="calc-group">
+                                <label class="label">Elemente Adiționale</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                    <label class="calc-checkbox-label">
+                                        <input type="checkbox" id="chkBrideBouquet" checked>
+                                        <span>Buchet Mireasă [+250 RON]</span>
+                                    </label>
+                                    <label class="calc-checkbox-label">
+                                        <input type="checkbox" id="chkGodmotherBouquet" checked>
+                                        <span>Buchet Nașă [+200 RON]</span>
+                                    </label>
+                                    <label class="calc-checkbox-label">
+                                        <input type="checkbox" id="chkCandles" checked>
+                                        <span>2x Lumânări Botez/Cununie [+450 RON]</span>
+                                    </label>
+                                    <label class="calc-checkbox-label">
+                                        <input type="checkbox" id="chkBoutonnieres">
+                                        <span>Cocarde Nași/Ginerică [+80 RON]</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Result Column -->
+                        <div class="calc-result-box">
+                            <i data-lucide="calculator" style="width: 44px; height: 44px; color: var(--color-accent); margin: 0 auto 12px;"></i>
+                            <span class="label">Estimare Buget Floral</span>
+                            <div class="calc-price-big" id="calcTotalPrice">2,500 RON</div>
+                            <p style="font-size: 13px; color: var(--color-text-secondary);">Aceasta este o estimare brută bazată pe tarifele noastre medii de sezon. Include designul, florile și manopera de montaj.</p>
+                            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+                                <button id="btnRequestQuote" class="btn" style="width: 100%;">Cere Ofertă Fermă</button>
+                                <button id="btnSaveCalcDemo" class="btn btn-secondary" style="width: 100%;">Salvează în Demo Admin</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="padding-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <p style="font-size: 12px; color: var(--color-text-secondary);">© 2026 Petale și Poveste. Sibiu, România.</p>
+                <div style="display: flex; gap: 24px;">
+                    <a href="index.html" style="font-size:12px; color: var(--color-text-secondary); text-decoration:none;">Acasă</a>
+                    <a href="about.html" style="font-size:12px; color: var(--color-text-secondary); text-decoration:none;">Poveste</a>
+                    <a href="portfolio.html" style="font-size:12px; color: var(--color-text-secondary); text-decoration:none;">Portofoliu</a>
+                    <a href="contact.html" style="font-size:12px; color: var(--color-text-secondary); text-decoration:none;">Contact</a>
+                </div>
             </div>
         </div>
+    </footer>
 
-        <div class="pricing-table">
-            <div class="price-card reveal">
-                <h4>Boutique</h4>
-                <div class="price">250 RON</div>
-                <a href="https://wa.me/40700000000?text=Bună%20ziua!%20Doresc%20să%20comand%20pachetul%20Boutique." class="btn">Comandă</a>
-            </div>
-            <div class="price-card featured reveal">
-                <h4>Eveniment</h4>
-                <div class="price">2500+ RON</div>
-                <a href="https://wa.me/40700000000?text=Bună%20ziua!%20Doresc%20o%20ofertă%20pentru%20un%20eveniment%20premium." class="btn">Cere Ofertă</a>
-            </div>
-            <div class="price-card reveal">
-                <h4>Enterprise</h4>
-                <div class="price">800 RON/lună</div>
-                <a href="https://wa.me/40700000000?text=Bună%20ziua!%20Doresc%20să%20mă%20abonez%20la%20pachetul%20Enterprise." class="btn">Abonează-te</a>
+    <!-- Cost Calculator Success Modal -->
+    <div class="lightbox" id="calcSuccessModal">
+        <div class="lightbox-content" style="max-width: 500px; text-align: center;">
+            <div style="padding: 40px; display: flex; flex-direction: column; gap: 20px; align-items: center;">
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(76, 175, 80, 0.15); display: flex; align-items: center; justify-content: center; color: #4caf50;">
+                    <i data-lucide="check" style="width: 40px; height: 40px;"></i>
+                </div>
+                <h2>Configurație Salvată!</h2>
+                <p id="calcSuccessText" style="font-size: 14px;">Datele tale au fost salvate cu succes. Ai generat o cotație pentru evenimentul tău.</p>
+                <div style="font-size: 24px; font-weight:600; font-family: var(--font-serif); color: var(--color-accent);" id="calcSuccessPrice">2,500 RON</div>
+                <div style="display: flex; gap: 12px; width: 100%; margin-top: 10px;">
+                    <button class="btn btn-secondary" style="flex:1;" id="btnCloseCalcModal">Închide</button>
+                    <a href="#" class="btn" style="flex:1.5; gap: 8px;" id="btnCalcWhatsApp">
+                        <i data-lucide="message-circle" style="width:16px; height:16px; fill: white;"></i>
+                        <span>WhatsApp Quote</span>
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <a href="https://wa.me/40700000000" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-2.31 0-4.184 1.874-4.184 4.184 0 2.31 1.874 4.184 4.184 4.184 2.31 0 4.184-1.874 4.184-4.184 0-2.31-1.874-4.184-4.184-4.184zm0 6.694c-1.383 0-2.51-1.127-2.51-2.51s1.127-2.51 2.51-2.51 2.51 1.127 2.51 2.51-1.127 2.51-2.51 2.51zm0-10.866C6.48 2 2 6.48 2 12.031c0 1.77.462 3.428 1.266 4.869L2 22l5.225-1.371a9.954 9.954 0 004.806 1.229c5.551 0 10.031-4.48 10.031-10.031S17.582 2 12.031 2zm0 18.39c-1.574 0-3.047-.406-4.328-1.114l-.31-.173-3.21.843.858-3.125-.19-.301a8.31 8.31 0 01-1.275-4.489c0-4.61 3.75-8.36 8.36-8.36s8.36 3.75 8.36 8.36-3.75 8.36-8.36 8.36z"/></svg>
-    </a>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <script>
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.parentElement;
-                const wasActive = item.classList.contains('active');
-                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
-                if (!wasActive) item.classList.add('active');
+        // Inline pricing calculator script
+        document.addEventListener('DOMContentLoaded', () => {
+            const rangeTables = document.getElementById('rangeTables');
+            const valTables = document.getElementById('valTables');
+            const selectPresidium = document.getElementById('selectPresidium');
+            const selectArch = document.getElementById('selectArch');
+            const chkBrideBouquet = document.getElementById('chkBrideBouquet');
+            const chkGodmotherBouquet = document.getElementById('chkGodmotherBouquet');
+            const chkCandles = document.getElementById('chkCandles');
+            const chkBoutonnieres = document.getElementById('chkBoutonnieres');
+            const calcTotalPrice = document.getElementById('calcTotalPrice');
+
+            const calculateCost = () => {
+                let total = 0;
+
+                // Tables: 150 RON per table arrangement
+                const numTables = parseInt(rangeTables.value);
+                valTables.textContent = `${numTables} ${numTables === 1 ? 'masă' : 'mese'}`;
+                total += numTables * 150;
+
+                // Presidium
+                const presidium = selectPresidium.value;
+                if (presidium === 'standard') total += 400;
+                else if (presidium === 'premium') total += 800;
+                else if (presidium === 'deluxe') total += 1500;
+
+                // Arch
+                const arch = selectArch.value;
+                if (arch === 'semi') total += 1000;
+                else if (arch === 'full') total += 2200;
+                else if (arch === 'installation') total += 3500;
+
+                // Accessories
+                if (chkBrideBouquet.checked) total += 250;
+                if (chkGodmotherBouquet.checked) total += 200;
+                if (chkCandles.checked) total += 450;
+                if (chkBoutonnieres.checked) total += 80;
+
+                // Base pricing threshold: at least 1000 RON for custom setup, or 0 if nothing selected
+                if (total > 0 && total < 1000) {
+                    total += 300; // Logistical base fee
+                }
+
+                calcTotalPrice.textContent = `${total.toLocaleString('ro-RO')} RON`;
+                return total;
+            };
+
+            // Register Event Listeners
+            [rangeTables, selectPresidium, selectArch, chkBrideBouquet, chkGodmotherBouquet, chkCandles, chkBoutonnieres].forEach(el => {
+                if(el) el.addEventListener('input', calculateCost);
             });
+
+            // Initial calculation
+            calculateCost();
+
+            // Save to Demo Admin Handler
+            const btnSaveCalcDemo = document.getElementById('btnSaveCalcDemo');
+            const btnRequestQuote = document.getElementById('btnRequestQuote');
+            const calcSuccessModal = document.getElementById('calcSuccessModal');
+            const btnCloseCalcModal = document.getElementById('btnCloseCalcModal');
+            const btnCalcWhatsApp = document.getElementById('btnCalcWhatsApp');
+            const calcSuccessPrice = document.getElementById('calcSuccessPrice');
+            const calcSuccessText = document.getElementById('calcSuccessText');
+
+            const getSummaryText = (price) => {
+                return `Configurație Eveniment:\n- ${rangeTables.value} mese invitați\n- Decor prezidiu: ${selectPresidium.options[selectPresidium.selectedIndex].text}\n- Aranjamente ceremonie: ${selectArch.options[selectArch.selectedIndex].text}\n- Accesorii: Mireasă (${chkBrideBouquet.checked ? 'Da' : 'Nu'}), Nașă (${chkGodmotherBouquet.checked ? 'Da' : 'Nu'}), Lumânări (${chkCandles.checked ? 'Da' : 'Nu'}), Cocardă (${chkBoutonnieres.checked ? 'Da' : 'Nu'}).\nEstimare Buget: ${price} RON.`;
+            };
+
+            const handleSaveDemo = (showModal = true) => {
+                const finalPrice = calculateCost();
+                const summary = getSummaryText(finalPrice);
+
+                // Create a message logs object in localStorage
+                const currentLogs = JSON.parse(localStorage.getItem('admin_messages') || '[]');
+                const newMsg = {
+                    id: Date.now(),
+                    sender: 'Calculator Buget Nuntă',
+                    email: 'client-eveniment@demo.com',
+                    text: summary.replace(/\n/g, '<br>'),
+                    timestamp: new Date().toLocaleTimeString('ro-RO') + ' ' + new Date().toLocaleDateString('ro-RO'),
+                    status: 'Pending'
+                };
+                currentLogs.unshift(newMsg);
+                localStorage.setItem('admin_messages', JSON.stringify(currentLogs));
+
+                // Dispatch event to update admin dashboard if opened
+                window.dispatchEvent(new Event('storage'));
+
+                if(showModal) {
+                    calcSuccessPrice.textContent = `${finalPrice.toLocaleString('ro-RO')} RON`;
+                    calcSuccessText.textContent = "Această configurație florală a fost simulată și trimisă cu succes în Panoul de Control Admin. O poți vizualiza în panoul de monitorizare analytics!";
+                    
+                    // Setup WhatsApp links
+                    const waText = encodeURIComponent(`Bună ziua! Am simulat un buget pentru decorul floral al evenimentului meu pe site-ul dvs. în valoare de ${finalPrice} RON. Iată configurația:\n\n${summary}`);
+                    btnCalcWhatsApp.href = `https://wa.me/40700000000?text=${waText}`;
+
+                    calcSuccessModal.classList.add('active');
+                }
+            };
+
+            btnSaveCalcDemo?.addEventListener('click', () => handleSaveDemo(true));
+            btnRequestQuote?.addEventListener('click', () => handleSaveDemo(true));
+            btnCloseCalcModal?.addEventListener('click', () => calcSuccessModal.classList.remove('active'));
         });
     </script>
 </body>
