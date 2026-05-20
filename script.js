@@ -161,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. Bouquet Builder Widget Interactive Logic
     const choiceBtns = document.querySelectorAll('.choice-btn');
     const builderTotalPrice = document.getElementById('builderTotalPrice');
+    const builderCanvas = document.getElementById('builderCanvas');
     
     // SVG layers
     const layerFlower1 = document.getElementById('layerFlower1');
@@ -189,35 +190,48 @@ document.addEventListener('DOMContentLoaded', () => {
             total += price;
         });
 
-        // 1. Flowers layers toggle
+        // 1. Flowers layers toggle with Dramatic Differentiators
         if (selections.flower === 'roses') {
-            if(layerFlower1) { layerFlower1.style.opacity = '1'; layerFlower1.style.transform = 'scale(1)'; }
-            if(layerFlower2) { layerFlower2.style.opacity = '0'; layerFlower2.style.transform = 'scale(0.8)'; }
+            if(layerFlower1) { layerFlower1.style.opacity = '1'; layerFlower1.style.transform = 'scale(1) translateY(0) rotate(0deg)'; }
+            if(layerFlower2) { layerFlower2.style.opacity = '0'; layerFlower2.style.transform = 'scale(0.7) translateY(20px) rotate(-15deg)'; }
         } else if (selections.flower === 'peonies') {
-            if(layerFlower1) { layerFlower1.style.opacity = '0'; layerFlower1.style.transform = 'scale(0.8)'; }
-            if(layerFlower2) { layerFlower2.style.opacity = '1'; layerFlower2.style.transform = 'scale(1)'; }
-        } else { // Mixed
-            if(layerFlower1) { layerFlower1.style.opacity = '1'; layerFlower1.style.transform = 'scale(0.9)'; }
-            if(layerFlower2) { layerFlower2.style.opacity = '1'; layerFlower2.style.transform = 'scale(0.9)'; }
+            if(layerFlower1) { layerFlower1.style.opacity = '0'; layerFlower1.style.transform = 'scale(0.7) translateY(20px) rotate(15deg)'; }
+            if(layerFlower2) { layerFlower2.style.opacity = '1'; layerFlower2.style.transform = 'scale(1.1) translateY(-10px) rotate(0deg)'; }
+        } else { // Mixed - Intertwined logic
+            if(layerFlower1) { layerFlower1.style.opacity = '1'; layerFlower1.style.transform = 'scale(0.85) translate(-20px, 10px) rotate(-8deg)'; }
+            if(layerFlower2) { layerFlower2.style.opacity = '1'; layerFlower2.style.transform = 'scale(0.85) translate(20px, -10px) rotate(8deg)'; }
         }
 
         // 2. Accents foliage layers toggle
         if (selections.accent === 'eucalyptus') {
-            if(layerFoliage) layerFoliage.style.opacity = '1';
-            if(layerFlowerAccent) { layerFlowerAccent.style.opacity = '0'; layerFlowerAccent.style.transform = 'translateY(10px)'; }
+            if(layerFoliage) { layerFoliage.style.opacity = '1'; layerFoliage.style.transform = 'scale(1) rotate(0deg)'; }
+            if(layerFlowerAccent) { layerFlowerAccent.style.opacity = '0'; layerFlowerAccent.style.transform = 'translateY(30px) scale(0.7)'; }
         } else if (selections.accent === 'lavender') {
-            if(layerFoliage) layerFoliage.style.opacity = '0';
-            if(layerFlowerAccent) { layerFlowerAccent.style.opacity = '1'; layerFlowerAccent.style.transform = 'translateY(0)'; }
-        } else { // Both
-            if(layerFoliage) layerFoliage.style.opacity = '0.9';
-            if(layerFlowerAccent) { layerFlowerAccent.style.opacity = '0.9'; layerFlowerAccent.style.transform = 'translateY(0)'; }
+            if(layerFoliage) { layerFoliage.style.opacity = '0'; layerFoliage.style.transform = 'scale(0.7) rotate(-10deg)'; }
+            if(layerFlowerAccent) { layerFlowerAccent.style.opacity = '1'; layerFlowerAccent.style.transform = 'translateY(0) scale(1.1) rotate(0deg)'; }
+        } else { // Both - Premium Mix
+            if(layerFoliage) { layerFoliage.style.opacity = '0.8'; layerFoliage.style.transform = 'scale(0.9) rotate(-5deg)'; }
+            if(layerFlowerAccent) { layerFlowerAccent.style.opacity = '0.8'; layerFlowerAccent.style.transform = 'translateY(5px) scale(0.95) rotate(5deg)'; }
         }
 
-        // 3. Wrapping Color Fill Change
+        // 3. Style-based overall canvas shifts - More distinct
+        if (selections.style === 'modern') {
+            // Modern is sleek and vertical
+            if(builderCanvas) builderCanvas.style.transform = 'scale(1.02) translateY(-25px) rotate(0deg)';
+        } else if (selections.style === 'boho') {
+            // Boho is wide and "wind-blown"
+            if(builderCanvas) builderCanvas.style.transform = 'scale(1.15) translateY(-5px) rotate(4deg)';
+        } else {
+            // Classic is centered and balanced
+            if(builderCanvas) builderCanvas.style.transform = 'scale(1) translateY(0) rotate(0deg)';
+        }
+
+        // 4. Wrapping Color Fill Change
         const activeWrapBtn = document.querySelector('.choice-btn[data-step="wrapping"].active');
         if (activeWrapBtn && wrappingPath) {
             const colorCode = activeWrapBtn.getAttribute('data-color');
             wrappingPath.setAttribute('fill', colorCode);
+            wrappingPath.style.transform = selections.style === 'boho' ? 'scaleX(1.1)' : 'scaleX(1)';
         }
 
         // Update price text
@@ -233,6 +247,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const step = btn.getAttribute('data-step');
             
+            // Visual feedback on click
+            btn.style.transform = 'scale(0.92)';
+            setTimeout(() => btn.style.transform = '', 150);
+
             // Remove active from step sibling buttons
             document.querySelectorAll(`.choice-btn[data-step="${step}"]`).forEach(b => {
                 b.classList.remove('active');

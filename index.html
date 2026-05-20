@@ -256,31 +256,19 @@
                             <!-- Primary Flower 2 (Peonies) -->
                             <div class="builder-layer" id="layerFlower2" style="z-index: 5; opacity: 0; transform: scale(0.8);">
                                 <svg viewBox="0 0 400 400" class="flower-svg-preview" id="svgPeonies">
-                                    <!-- Large Peonies (Lavendar/White by default) -->
+                                    <!-- Large Peonies (Distinctive fluffy petal layers) -->
                                     <g class="peony-flower" transform="translate(200, 110)">
-                                        <!-- Petals -->
-                                        <circle cx="-14" cy="0" r="18" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="14" cy="0" r="18" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="-14" r="18" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="14" r="18" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="0" r="16" fill="rgba(195, 160, 225, 0.95)"/>
-                                        <circle cx="0" cy="0" r="8" fill="rgba(253, 224, 71, 0.9)"/>
-                                    </g>
-                                    <g class="peony-flower" transform="translate(130, 130)">
-                                        <circle cx="-10" cy="0" r="14" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="10" cy="0" r="14" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="-10" r="14" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="10" r="14" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="0" r="12" fill="rgba(195, 160, 225, 0.95)"/>
+                                        <path d="M -25 -10 Q -35 -30 -15 -35 Q 0 -45 15 -35 Q 35 -30 25 -10 Q 35 10 15 25 Q 0 35 -15 25 Q -35 10 -25 -10" fill="rgba(215, 190, 240, 0.95)"/>
+                                        <path d="M -15 -5 Q -20 -20 -5 -25 Q 0 -30 5 -25 Q 20 -20 15 -5 Q 20 10 5 15 Q 0 25 -5 15 Q -20 10 -15 -5" fill="rgba(195, 160, 225, 1)"/>
                                         <circle cx="0" cy="0" r="6" fill="rgba(253, 224, 71, 0.9)"/>
                                     </g>
-                                    <g class="peony-flower" transform="translate(270, 130)">
-                                        <circle cx="-10" cy="0" r="14" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="10" cy="0" r="14" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="-10" r="14" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="10" r="14" fill="rgba(215, 190, 240, 0.9)"/>
-                                        <circle cx="0" cy="0" r="12" fill="rgba(195, 160, 225, 0.95)"/>
-                                        <circle cx="0" cy="0" r="6" fill="rgba(253, 224, 71, 0.9)"/>
+                                    <g class="peony-flower" transform="translate(140, 150)">
+                                        <path d="M -20 -8 Q -28 -24 -12 -28 Q 0 -36 12 -28 Q 28 -24 20 -8 Q 28 8 12 20 Q 0 28 -12 20 Q -28 8 -20 -8" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="0" r="5" fill="rgba(253, 224, 71, 0.8)"/>
+                                    </g>
+                                    <g class="peony-flower" transform="translate(260, 150)">
+                                        <path d="M -20 -8 Q -28 -24 -12 -28 Q 0 -36 12 -28 Q 28 -24 20 -8 Q 28 8 12 20 Q 0 28 -12 20 Q -28 8 -20 -8" fill="rgba(215, 190, 240, 0.9)"/>
+                                        <circle cx="0" cy="0" r="5" fill="rgba(253, 224, 71, 0.8)"/>
                                     </g>
                                 </svg>
                             </div>
@@ -288,16 +276,17 @@
                             <!-- Accent Flower (Lavender/Field Flowers) -->
                             <div class="builder-layer" id="layerFlowerAccent" style="z-index: 6; opacity: 0; transform: translateY(10px);">
                                 <svg viewBox="0 0 400 400" class="flower-svg-preview" id="svgAccent">
-                                    <!-- Tall lavender branches pointing out -->
-                                    <g stroke="rgba(168, 85, 247, 0.8)" stroke-width="4" stroke-linecap="round" fill="none">
-                                        <!-- Left branch -->
-                                        <path d="M 160 160 L 110 80 M 110 80 L 105 70 M 120 90 L 115 80 M 100 70 L 95 60"/>
-                                        <!-- Right branch -->
-                                        <path d="M 240 160 L 290 80 M 290 80 L 295 70 M 280 90 L 285 80 M 300 70 L 305 60"/>
+                                    <!-- Tall lavender spikes -->
+                                    <g stroke="rgba(168, 85, 247, 0.8)" stroke-width="2.5" stroke-linecap="round" fill="none">
+                                        <path d="M 180 180 L 140 60" />
+                                        <path d="M 220 180 L 260 60" />
+                                        <path d="M 200 180 L 200 40" />
                                     </g>
                                     <g fill="rgba(168, 85, 247, 0.9)">
-                                        <circle cx="110" cy="80" r="5"/> <circle cx="105" cy="70" r="4"/> <circle cx="100" cy="60" r="3"/>
-                                        <circle cx="290" cy="80" r="5"/> <circle cx="295" cy="70" r="4"/> <circle cx="300" cy="60" r="3"/>
+                                        <!-- Vertical buds for lavender -->
+                                        <ellipse cx="140" cy="60" rx="4" ry="8" /> <ellipse cx="142" cy="75" rx="3" ry="7" /> <ellipse cx="138" cy="90" rx="3" ry="7" />
+                                        <ellipse cx="260" cy="60" rx="4" ry="8" /> <ellipse cx="258" cy="75" rx="3" ry="7" /> <ellipse cx="262" cy="90" rx="3" ry="7" />
+                                        <ellipse cx="200" cy="40" rx="4" ry="10" /> <ellipse cx="200" cy="60" rx="4" ry="9" /> <ellipse cx="200" cy="80" rx="3" ry="8" />
                                     </g>
                                 </svg>
                             </div>
@@ -565,7 +554,6 @@
                         <!-- Slide 1 -->
                         <div class="testimonial-slide">
                             <div class="testimonial-card">
-                                <img src="imgs/testimonial-1.png" alt="Andreea M." class="testimonial-avatar">
                                 <p class="testimonial-text">„Am comandat decorul floral pentru nuntă și a fost absolut spectaculos! Oaspeții au fost impresionați de naturalețea și aranjamentele asimetrice, exact pe gustul nostru. Recomand cu căldură echipa de la Petale și Poveste!”</p>
                                 <h4 class="testimonial-author">Andreea Munteanu</h4>
                                 <span class="testimonial-city">Sibiu</span>
@@ -574,7 +562,6 @@
                         <!-- Slide 2 -->
                         <div class="testimonial-slide">
                             <div class="testimonial-card">
-                                <img src="imgs/testimonial-2.png" alt="Mihai D." class="testimonial-avatar">
                                 <p class="testimonial-text">„Abonamentul floral de birou ne-a schimbat atmosfera complet în recepție! În fiecare zi de luni primim o vază cu flori proaspete și un design mereu diferit, care rezistă excelent pe tot parcursul săptămânii.”</p>
                                 <h4 class="testimonial-author">Mihai Dumitrescu</h4>
                                 <span class="testimonial-city">Cisnădie</span>
